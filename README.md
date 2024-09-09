@@ -9,5 +9,5 @@ The cobra-ui package empowers developers to craft immersive and interactive user
 - **Single-Choice Questions**: Allow users to select one option from a list of choices.
 - **Text Input Questions**: Prompt users to enter text-based inputs.  
 - **Password Input Questions**: Securely collect password inputs from users, hiding the entered characters for privacy.  
--**Dynamic Pagination**: Automatically paginate choices for single-choice questions with more than 10 options, ensuring a smooth user experience without overwhelming them with too many choices at once.  
+- **Dynamic Pagination**: Automatically paginate choices for single-choice questions with more than 10 options, ensuring a smooth user experience without overwhelming them with too many choices at once.  
 - Each question can have separately its own string cursor and color (the default cursor if not specified is ->)
