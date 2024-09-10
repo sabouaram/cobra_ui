@@ -1,4 +1,4 @@
-module cobra-ui
+module github.com/sabouaram/cobra-ui
 
 go 1.22.3
 
