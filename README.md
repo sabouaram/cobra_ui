@@ -17,3 +17,37 @@ The cobra-ui package empowers developers to craft immersive and interactive user
 - **Dynamic Pagination**: Automatically paginate choices for single-choice questions with more than 10 options, ensuring a smooth user experience without overwhelming them with too many choices at once.
   
 - Each question can have separately its own string cursor and color (the default cursor if not specified is ->)
+
+
+
+**FilePath Example**
+```
+package main
+
+import (
+	"fmt"
+
+	"github.com/fatih/color"
+	cobra_ui "github.com/sabouaram/cobra-ui"
+)
+
+func main() {
+	var selectedFile string
+	ui := cobra_ui.New()
+	ui.SetQuestions([]cobra_ui.Question{
+		{
+			Text:     "Select a file:",
+			Color:    color.FgCyan,
+			FilePath: true,
+			Handler: func(filePath string) error {
+				selectedFile = filePath
+				return nil
+			},
+		},
+	})
+	ui.RunInteractiveUI()
+	fmt.Printf("Selected file full path: %s\n", selectedFile)
+}
+
+```
+[![asciicast](https://asciinema.org/a/a0y30vbZP8E8uXpMF3TOHQc7r.svg)](https://asciinema.org/a/a0y30vbZP8E8uXpMF3TOHQc7r)
