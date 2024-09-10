@@ -20,7 +20,7 @@ The cobra-ui package empowers developers to craft immersive and interactive user
 
 
       
-**FilePath Example**
+## **FilePath Example**
 
 
 ```
