@@ -198,11 +198,17 @@ func (u *ui) appendInputView(view *string, question Question) {
 
 		} else {
 
-			*view += "" + u.input + "\n"
+			*view += u.input + "\n"
 		}
 
 	} else {
 
 		*view += "\n"
+	}
+
+	if u.errorMsg != "" {
+
+		*view += "\nError: " + u.errorMsg + "\n"
+
 	}
 }
