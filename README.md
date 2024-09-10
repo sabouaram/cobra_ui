@@ -19,7 +19,7 @@ The cobra-ui package empowers developers to craft immersive and interactive user
 - Each question can have separately its own string cursor and color (the default cursor if not specified is ->)
 
 
-
+      
 **FilePath Example**
 
 
