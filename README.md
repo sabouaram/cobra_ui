@@ -52,4 +52,5 @@ func main() {
 }
 
 ```
-[![asciicast](https://asciinema.org/a/a0y30vbZP8E8uXpMF3TOHQc7r.svg)](https://asciinema.org/a/a0y30vbZP8E8uXpMF3TOHQc7r)
+
+![FilePath](./filepath.gif)
