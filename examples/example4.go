@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	cobra_ui "github.com/sabouaram/cobra-ui"
+	"github.com/sabouaram/cobra_ui"
 )
 
 func main() {

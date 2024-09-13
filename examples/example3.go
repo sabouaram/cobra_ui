@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
-	cobra_ui "github.com/sabouaram/cobra-ui"
+	"github.com/sabouaram/cobra_ui"
 )
 
 func main() {

@@ -69,13 +69,17 @@ func (u *ui) RunInteractiveUI() {
 	u.cursor = 0
 
 	p := tea.NewProgram(u)
+	_, err := p.Run()
 
-	if _, err := p.Run(); err != nil {
+	if err != nil {
 
 		fmt.Println("Error:", err)
 
-		os.Exit(1)
+		os.Exit(-1)
 	}
+
+	//m.Update()
+
 }
 
 func (u *ui) AfterPreRun() {

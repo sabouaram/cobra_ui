@@ -1,9 +1,9 @@
-module github.com/sabouaram/cobra-ui
+module github.com/sabouaram/cobra_ui
 
 go 1.22.3
 
 require (
-	github.com/charmbracelet/bubbletea v1.1.0
+	github.com/charmbracelet/bubbletea v1.1.1
 	github.com/fatih/color v1.17.0
 	github.com/spf13/cobra v1.8.1
 )

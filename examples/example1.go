@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/fatih/color"
-	cobra_ui "github.com/sabouaram/cobra-ui"
+	cobra_ui "github.com/sabouaram/cobra_ui"
 )
 
 func main() {

@@ -36,7 +36,7 @@ func (u *ui) View() string {
 
 	if u.index >= len(u.questions) {
 
-		return u.LastMessage
+		return ""
 
 	}
 
