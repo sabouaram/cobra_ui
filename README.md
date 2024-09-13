@@ -23,7 +23,7 @@ The cobra-ui package empowers developers to craft immersive and interactive user
 ## **FilePath Example**
 
 
-```
+```go
 package main
 
 import (
@@ -61,7 +61,7 @@ func main() {
 **Choices Question  Example**
 
 
-```
+```go
 package main
 
 import (
@@ -101,7 +101,7 @@ func main() {
 **Text Input Example**
 
 
-```
+```go
 
 package main
 
@@ -145,7 +145,7 @@ func main() {
 
 **Password Input Example**
 
-```
+```go
 package main
 
 import (
@@ -189,7 +189,7 @@ func main() {
 
 
 
-```
+```go
 package main
 
 import (
