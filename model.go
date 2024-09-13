@@ -26,7 +26,7 @@
 package cobra_ui
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 
@@ -63,7 +63,6 @@ func (u *ui) SetQuestions(questions []Question) {
 	u.questions = questions
 }
 
-
 func (u *ui) RunInteractiveUI() {
 
 	u.index = 0
@@ -71,18 +70,19 @@ func (u *ui) RunInteractiveUI() {
 
 	p := tea.NewProgram(u)
 
-	if err := p.Start(); err != nil {
-		fmt.Println("Error:", err)
+	if _, err := p.Run(); err != nil {
+
+		log.Println("Error:", err)
+
 		os.Exit(1)
 	}
 }
-
 
 func (u *ui) AfterPreRun() {
 
 	if u.cobra == nil {
 
-		fmt.Println("Cobra instance is not set")
+		log.Println("Cobra instance is not set")
 	}
 
 	existingPreRun := u.cobra.PreRun
@@ -109,7 +109,7 @@ func (u *ui) BeforePreRun() {
 
 	if u.cobra == nil {
 
-		fmt.Println("Cobra instance is not set")
+		log.Println("Cobra instance is not set")
 	}
 
 	existingPreRun := u.cobra.PreRun
@@ -136,7 +136,7 @@ func (u *ui) BeforeRun() {
 
 	if u.cobra == nil {
 
-		fmt.Println("Cobra instance is not set")
+		log.Println("Cobra instance is not set")
 	}
 
 	existingRun := u.cobra.Run
@@ -162,7 +162,7 @@ func (u *ui) AfterRun() {
 
 	if u.cobra == nil {
 
-		fmt.Println("Cobra instance is not set")
+		log.Println("Cobra instance is not set")
 	}
 
 	existingRun := u.cobra.Run
