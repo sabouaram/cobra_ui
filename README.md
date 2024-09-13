@@ -1,6 +1,6 @@
 # cobra-ui 
 
-The cobra-ui package empowers developers to craft immersive and interactive user interfaces seamlessly into their CLI applications (cobra-ui is a cross platform UI that can be integrated easily with Cobra CLIs [Cobra](https://github.com/spf13/cobra) or other CLI tools )
+The cobra-ui package empowers developers to craft immersive and interactive user interfaces seamlessly into their terminal applications (cobra-ui is a cross platform UI that can be integrated easily with Cobra CLIs [Cobra](https://github.com/spf13/cobra) or other CLI tools )
 
 ## Features
 
