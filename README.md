@@ -30,7 +30,7 @@ import (
 	"fmt"
 
 	"github.com/fatih/color"
-	cobra_ui "github.com/sabouaram/cobra-ui"
+	"github.com/sabouaram/cobra_ui"
 )
 
 func main() {
@@ -68,7 +68,7 @@ import (
 	"fmt"
 
 	"github.com/fatih/color"
-	cobra_ui "github.com/sabouaram/cobra-ui"
+	"github.com/sabouaram/cobra_ui"
 )
 
 func main() {
@@ -110,7 +110,7 @@ import (
 	"fmt"
 	"strconv"
 
-	cobra_ui "github.com/sabouaram/cobra-ui"
+	"github.com/sabouaram/cobra_ui"
 )
 
 func main() {
@@ -151,7 +151,7 @@ package main
 import (
 	"fmt"
 
-	cobra_ui "github.com/sabouaram/cobra-ui"
+	"github.com/sabouaram/cobra_ui"
 )
 
 func main() {
@@ -194,7 +194,8 @@ package main
 
 import (
 	"fmt"
-	cobra_ui "github.com/sabouaram/cobra-ui"
+
+        "github.com/sabouaram/cobra_ui"
 	"github.com/spf13/cobra"
 )
 
