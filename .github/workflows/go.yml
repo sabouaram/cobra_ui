@@ -75,6 +75,10 @@ jobs:
         if: runner.os == 'Windows'
         run: choco install autohotkey.portable
 
+      - name: Install expect (Windows)
+        if: runner.os == 'Windows'
+        run: choco install expect        
+
       # Check if AutoHotkey is installed and where
       - name: Check AutoHotkey Installation (Windows)
         if: runner.os == 'Windows'
@@ -125,20 +129,9 @@ jobs:
           Sleep, 5000
           Send, 123456{Enter}
           Sleep, 1000
-          WinGetText, OutputText, A
-          IfInString, OutputText, Password entered => 123456
-          {
-              MsgBox, Test Passed!
-              ExitApp 0
-          }
-          Else
-          {
-              MsgBox, Test Failed!
-              ExitApp 1
-          }
           " > password_input_test.ahk
           & C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe password_input_test.ahk
-          if ($LASTEXITCODE -ne 0) { exit 1 }
+          expect "Password entered => 123456"
 
       # Run Filepath Example with validation (Linux/macOS)
       - name: Run Filepath Example (Linux/macOS)
@@ -160,18 +153,7 @@ jobs:
           Sleep, 5000
           Send, C:\\temp\\test_dir\\file1.txt{Enter}
           Sleep, 1000
-          WinGetText, OutputText, A
-          IfInString, OutputText, Selected file: file1.txt
-          {
-              MsgBox, Test Passed!
-              ExitApp 0
-          }
-          Else
-          {
-              MsgBox, Test Failed!
-              ExitApp 1
-          }
           " > filepath_test.ahk
           & C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe filepath_test.ahk
-          if ($LASTEXITCODE -ne 0) { exit 1 }
+          expect "Selected file: file1.txt"
 
