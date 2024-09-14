@@ -76,40 +76,53 @@ jobs:
       - name: Detect Down Arrow Key Sequence (Linux/macOS)
         if: runner.os != 'Windows'
         run: |
-          python3 -c "import sys, termios, tty, time; \
-def get_escape_sequence(): \
-    fd = sys.stdin.fileno(); \
-    old_settings = termios.tcgetattr(fd); \
-    try: \
-        tty.setraw(sys.stdin.fileno()); \
-        ch = sys.stdin.read(1); \
-        if ch == '\x1b': \
-            ch = sys.stdin.read(2); \
-            return '\x1b' + ch; \
-    finally: \
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings); \
-    return ''; \
-print('Simulating down arrow key press...'); \
-time.sleep(1); \
-sequence = get_escape_sequence(); \
-print(f'Detected escape sequence: {sequence}')"
+          python3 -c "
+import sys
+import termios
+import tty
+import time
+
+def get_escape_sequence():
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    try:
+        tty.setraw(sys.stdin.fileno())
+        ch = sys.stdin.read(1)
+        if ch == '\x1b':
+            ch = sys.stdin.read(2)
+            return '\x1b' + ch
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return ''
+
+print('Simulating down arrow key press...')
+time.sleep(1)  # Wait to simulate key press delay
+sequence = get_escape_sequence()
+print(f'Detected escape sequence: {sequence}')
+"
           echo "DOWN_ARROW_SEQUENCE=$(python3 -c 'import sys; print(sys.stdin.read().strip())')" >> $GITHUB_ENV
 
+   
       - name: Detect Down Arrow Key Sequence (Windows)
         if: runner.os == 'Windows'
         run: |
-          python -c "from pynput import keyboard; \
-def on_press(key): \
-    try: \
-        print(f'Alphanumeric key {key.char} pressed'); \
-    except AttributeError: \
-        print(f'Special key {key} pressed'); \
-def on_release(key): \
-    if key == keyboard.Key.esc: \
-        return False; \
-print('Press any key to capture its escape sequence...'); \
-with keyboard.Listener(on_press=on_press, on_release=on_release) as listener: \
-    listener.join()"
+          python -c "
+from pynput import keyboard
+
+def on_press(key):
+    try:
+        print(f'Alphanumeric key {key.char} pressed')
+    except AttributeError:
+        print(f'Special key {key} pressed')
+
+def on_release(key):
+    if key == keyboard.Key.esc:
+        return False
+
+print('Press any key to capture its escape sequence...')
+with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
+    listener.join()
+"
           echo "DOWN_ARROW_SEQUENCE=$(python -c 'import sys; print(sys.stdin.read().strip())')" >> $GITHUB_ENV
 
 
