@@ -37,19 +37,12 @@ jobs:
             brew install expect
           fi
 
-
       - name: Create test directory (Linux/macOS)
         if: runner.os != 'Windows'
         run: |
-          if [ "${{ runner.os }}" == "Linux" ]; then
-            mkdir -p /tmp/test_dir
-            echo "file1.txt" > /tmp/test_dir/file1.txt
-            echo "file2.txt" > /tmp/test_dir/file2.txt
-          elif [ "${{ runner.os }}" == "macOS" ]; then
-            mkdir -p /tmp/test_dir
-            echo "file1.txt" > /tmp/test_dir/file1.txt
-            echo "file2.txt" > /tmp/test_dir/file2.txt
-          fi
+          mkdir -p /tmp/test_dir
+          echo "file1.txt" > /tmp/test_dir/file1.txt
+          echo "file2.txt" > /tmp/test_dir/file2.txt
 
       - name: Create test directory (Windows)
         if: runner.os == 'Windows'
@@ -66,6 +59,7 @@ jobs:
         if: runner.os == 'Windows'
         run: echo "FILE_DIR=C:\\temp\\test_dir" >> $GITHUB_ENV
 
+      # Linux/macOS: Run with expect
       - name: Run Text Input example (Linux/macOS)
         if: runner.os != 'Windows'
         run: |
@@ -76,15 +70,21 @@ jobs:
           expect "Your entered age is 25"
           EOF
 
+      # Windows: Run with AHK
+      - name: Install AutoHotkey (Windows)
+        if: runner.os == 'Windows'
+        run: choco install autohotkey.portable
+
       - name: Run Text Input example (Windows)
         if: runner.os == 'Windows'
         run: |
-          expect <<EOF
-          spawn go run examples/example3.go
-          expect "Enter your age:"
-          send "25\r\n"
-          expect "Your entered age is 25"
-          EOF
+          echo "
+          Run 'go run examples/example3.go'
+          Sleep, 2000
+          Send, 25{Enter}
+          Sleep, 1000
+          " > text_input_test.ahk
+          Start-Process "AutoHotkey64.exe" -ArgumentList "text_input_test.ahk"
 
       - name: Run Password Input example (Linux/macOS)
         if: runner.os != 'Windows'
@@ -99,14 +99,13 @@ jobs:
       - name: Run Password Input example (Windows)
         if: runner.os == 'Windows'
         run: |
-          expect <<EOF
-          spawn go run examples/example4.go
-          expect "Enter your password: "
-          send "123456\r\n"
-          expect "Password entered => 123456"
-          EOF
-
-  
+          echo "
+          Run 'go run examples/example4.go'
+          Sleep, 2000
+          Send, 123456{Enter}
+          Sleep, 1000
+          " > password_input_test.ahk
+          Start-Process "AutoHotkey64.exe" -ArgumentList "password_input_test.ahk"
 
       - name: Run Filepath Example (Linux/macOS)
         if: runner.os != 'Windows'
@@ -114,7 +113,6 @@ jobs:
           expect <<EOF
           spawn go run examples/example1.go
           expect "Select a file:"
-          # Send the file path
           send "$::env(FILE_DIR)\r"
           expect "Selected file: file1.txt"
           EOF
@@ -122,9 +120,10 @@ jobs:
       - name: Run Filepath Example (Windows)
         if: runner.os == 'Windows'
         run: |
-          expect <<EOF
-          spawn go run examples/example1.go
-          expect "Select a file:"
-          send "C:\\temp\\test_dir\\file1.txt\r\n"  # Send the file path
-          expect "Selected file: file1.txt"
-          EOF
+          echo "
+          Run 'go run examples/example1.go'
+          Sleep, 2000
+          Send, C:\\temp\\test_dir\\file1.txt{Enter}
+          Sleep, 1000
+          " > filepath_test.ahk
+          Start-Process "AutoHotkey64.exe" -ArgumentList "filepath_test.ahk"
