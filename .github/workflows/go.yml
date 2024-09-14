@@ -20,7 +20,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Go
+      - name: Set up Go 
         uses: actions/setup-go@v4
         with:
           go-version: '>=1.21.0'
@@ -30,18 +30,25 @@ jobs:
 
       - name: Install expect tool (Linux/macOS)
         if: runner.os != 'Windows'
-        run: sudo apt-get update && sudo apt-get install -y expect
-
-      - name: Install expect tool (Windows)
-        if: runner.os == 'Windows'
-        run: choco install expect
+        run: |
+          if [ "${{ runner.os }}" == "Linux" ]; then
+            sudo apt-get update && sudo apt-get install -y expect
+          elif [ "${{ runner.os }}" == "macOS" ]; then
+            brew install expect
+          fi
 
       - name: Create test directory (Linux/macOS)
         if: runner.os != 'Windows'
         run: |
-          mkdir -p /tmp/test_dir
-          echo "file1.txt" > /tmp/test_dir/file1.txt
-          echo "file2.txt" > /tmp/test_dir/file2.txt
+          if [ "${{ runner.os }}" == "Linux" ]; then
+            mkdir -p /tmp/test_dir
+            echo "file1.txt" > /tmp/test_dir/file1.txt
+            echo "file2.txt" > /tmp/test_dir/file2.txt
+          elif [ "${{ runner.os }}" == "macOS" ]; then
+            mkdir -p /tmp/test_dir
+            echo "file1.txt" > /tmp/test_dir/file1.txt
+            echo "file2.txt" > /tmp/test_dir/file2.txt
+          fi
 
       - name: Create test directory (Windows)
         if: runner.os == 'Windows'
