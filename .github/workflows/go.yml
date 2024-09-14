@@ -90,7 +90,7 @@ jobs:
           Send, 25{Enter}
           Sleep, 1000
           " > text_input_test.ahk
-          C:\ProgramData\chocolatey\bin\AutoHotkey.exe text_input_test.ahk
+          C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe
 
       - name: Run Password Input example (Linux/macOS)
         if: runner.os != 'Windows'
@@ -111,7 +111,7 @@ jobs:
           Send, 123456{Enter}
           Sleep, 1000
           " > password_input_test.ahk
-          C:\ProgramData\chocolatey\bin\AutoHotkey.exe password_input_test.ahk
+          C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe
 
       - name: Run Filepath Example (Linux/macOS)
         if: runner.os != 'Windows'
@@ -132,4 +132,4 @@ jobs:
           Send, C:\\temp\\test_dir\\file1.txt{Enter}
           Sleep, 1000
           " > filepath_test.ahk
-          C:\ProgramData\chocolatey\bin\AutoHotkey.exe filepath_test.ahk
+          C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe
