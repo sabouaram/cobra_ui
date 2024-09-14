@@ -65,12 +65,24 @@ jobs:
         run: |
           choco install autoit --yes
 
+      # List all installed Chocolatey packages (Windows)
+      - name: List Chocolatey packages (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          choco list --local-only
+
       # Find AutoIt executable path (Windows)
       - name: Find AutoIt executable path (Windows)
         if: runner.os == 'Windows'
         id: find_autoit_path
         run: |
-          $autoItPath = (Get-Command AutoIt3.exe -ErrorAction SilentlyContinue).Source
+          # Check default installation paths
+          $possiblePaths = @(
+            "C:\Program Files (x86)\AutoIt3\AutoIt3.exe",
+            "C:\Program Files (x86)\AutoIt3\AutoIt3_x64.exe",
+            "C:\ProgramData\chocolatey\lib\autoit\tools\AutoIt3.exe"
+          )
+          $autoItPath = $possiblePaths | Where-Object { Test-Path $_ }
           if (-not $autoItPath) {
             Write-Output "AutoIt executable not found."
             exit 1
