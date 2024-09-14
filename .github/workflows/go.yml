@@ -70,10 +70,16 @@ jobs:
           expect "Your entered age is 25"
           EOF
 
-      # Windows: Run with AHK
+      # Install AutoHotkey on Windows
       - name: Install AutoHotkey (Windows)
         if: runner.os == 'Windows'
         run: choco install autohotkey.portable
+
+      # Check if AutoHotkey is installed and where
+      - name: Check AutoHotkey Installation (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          Get-Command AutoHotkey64.exe
 
       - name: Run Text Input example (Windows)
         if: runner.os == 'Windows'
@@ -84,7 +90,7 @@ jobs:
           Send, 25{Enter}
           Sleep, 1000
           " > text_input_test.ahk
-          Start-Process "AutoHotkey64.exe" -ArgumentList "text_input_test.ahk"
+          C:\ProgramData\chocolatey\bin\AutoHotkey64.exe text_input_test.ahk
 
       - name: Run Password Input example (Linux/macOS)
         if: runner.os != 'Windows'
@@ -105,7 +111,7 @@ jobs:
           Send, 123456{Enter}
           Sleep, 1000
           " > password_input_test.ahk
-          Start-Process "AutoHotkey64.exe" -ArgumentList "password_input_test.ahk"
+          C:\ProgramData\chocolatey\bin\AutoHotkey64.exe password_input_test.ahk
 
       - name: Run Filepath Example (Linux/macOS)
         if: runner.os != 'Windows'
@@ -126,4 +132,4 @@ jobs:
           Send, C:\\temp\\test_dir\\file1.txt{Enter}
           Sleep, 1000
           " > filepath_test.ahk
-          Start-Process "AutoHotkey64.exe" -ArgumentList "filepath_test.ahk"
+          C:\ProgramData\chocolatey\bin\AutoHotkey64.exe filepath_test.ahk
