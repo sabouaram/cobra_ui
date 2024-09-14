@@ -128,7 +128,7 @@ jobs:
           IfInString, OutputText, Password entered => 123456
           {
               MsgBox, Test Passed!
-              ExitApp
+              ExitApp 0
           }
           Else
           {
@@ -163,7 +163,7 @@ jobs:
           IfInString, OutputText, Selected file: file1.txt
           {
               MsgBox, Test Passed!
-              ExitApp
+              ExitApp 0
           }
           Else
           {
