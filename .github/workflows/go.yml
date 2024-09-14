@@ -20,7 +20,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Go 
+      - name: Set up Go
         uses: actions/setup-go@v4
         with:
           go-version: '>=1.21.0'
@@ -28,17 +28,9 @@ jobs:
       - name: Install dependencies
         run: go mod tidy
 
-      - name: Install expect tool (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y tcl expect
-
-
-      - name: Install expect tool (macOS)
-        if: runner.os == 'macOS'
-        run: |
-          brew install expect || echo "Expect installation failed"
+      - name: Install expect tool (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: sudo apt-get update && sudo apt-get install -y expect
 
       - name: Install expect tool (Windows)
         if: runner.os == 'Windows'
@@ -66,7 +58,8 @@ jobs:
         if: runner.os == 'Windows'
         run: echo "FILE_DIR=C:\\temp\\test_dir" >> $GITHUB_ENV
 
-      - name: Run Text Input example
+      - name: Run Text Input example (Linux/macOS)
+        if: runner.os != 'Windows'
         run: |
           expect <<EOF
           spawn go run examples/example3.go
@@ -75,7 +68,18 @@ jobs:
           expect "Your entered age is 25"
           EOF
 
-      - name: Run Password Input example
+      - name: Run Text Input example (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          expect <<EOF
+          spawn go run examples/example3.go
+          expect "Enter your age:"
+          send "25\r\n"
+          expect "Your entered age is 25"
+          EOF
+
+      - name: Run Password Input example (Linux/macOS)
+        if: runner.os != 'Windows'
         run: |
           expect <<EOF
           spawn go run examples/example4.go
@@ -84,13 +88,35 @@ jobs:
           expect "Password entered => 123456"
           EOF
 
-      - name: Run Choices Example
+      - name: Run Password Input example (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          expect <<EOF
+          spawn go run examples/example4.go
+          expect "Enter your password: "
+          send "123456\r\n"
+          expect "Password entered => 123456"
+          EOF
+
+      - name: Run Choices Example (Linux/macOS)
+        if: runner.os != 'Windows'
         run: |
           expect <<EOF
           spawn go run examples/example2.go
           expect "What is your preferred programming language?"
           send "\033[B"  # down arrow to select the next option
           send "\r"      # press Enter
+          expect "Selected choice: Python"
+          EOF
+
+      - name: Run Choices Example (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          expect <<EOF
+          spawn go run examples/example2.go
+          expect "What is your preferred programming language?"
+          send "\033[B"  # down arrow to select the next option
+          send "\r\n"    # press Enter
           expect "Selected choice: Python"
           EOF
 
@@ -110,6 +136,6 @@ jobs:
           expect <<EOF
           spawn go run examples/example1.go
           expect "Select a file:"
-          send "C:\\temp\\test_dir\\file1.txt\r"  # Send the file path
+          send "C:\\temp\\test_dir\\file1.txt\r\n"  # Send the file path
           expect "Selected file: file1.txt"
           EOF
