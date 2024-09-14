@@ -32,7 +32,8 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y expect
+          sudo apt-get install -y tcl expect
+
 
       - name: Install expect tool (macOS)
         if: runner.os == 'macOS'
