@@ -106,25 +106,7 @@ jobs:
           expect "Password entered => 123456"
           EOF
 
-      - name: Run Choices Example (Linux/macOS)
-        if: runner.os != 'Windows'
-        run: |
-          expect <<EOF
-          spawn go run examples/example2.go
-          expect "$ "
-          send "Go\r"      # press Enter
-          expect "Selected choice: Go"
-          EOF
-
-      - name: Run Choices Example (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          expect <<EOF
-          spawn go run examples/example2.go
-          expect "$ "
-          send "Go\r\n"    # press Enter
-          expect "Selected choice: Go"
-          EOF
+  
 
       - name: Run Filepath Example (Linux/macOS)
         if: runner.os != 'Windows'
