@@ -86,21 +86,23 @@ jobs:
         run: |
           echo "
           Run 'go run examples/example3.go'
-          Sleep, 5
+          Sleep, 5000
           Send, 25{Enter}
-          Sleep, 5
-          WinGetText, OutputText, A  ; Get the text from the active window
+          Sleep, 1000
+          WinGetText, OutputText, A
           IfInString, OutputText, Your entered age is 25
           {
               MsgBox, Test Passed!
+              ExitApp
           }
           Else
           {
               MsgBox, Test Failed!
-              ExitApp
+              ExitApp 1
           }
           " > text_input_test.ahk
-          C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe text_input_test.ahk
+          & C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe text_input_test.ahk
+          if ($LASTEXITCODE -ne 0) { exit 1 }
 
       # Run Password Input example with validation (Linux/macOS)
       - name: Run Password Input example (Linux/macOS)
@@ -119,21 +121,23 @@ jobs:
         run: |
           echo "
           Run 'go run examples/example4.go'
-          Sleep, 5
+          Sleep, 5000
           Send, 123456{Enter}
-          Sleep, 5
+          Sleep, 1000
           WinGetText, OutputText, A
           IfInString, OutputText, Password entered => 123456
           {
               MsgBox, Test Passed!
+              ExitApp
           }
           Else
           {
               MsgBox, Test Failed!
-              ExitApp
+              ExitApp 1
           }
           " > password_input_test.ahk
-          C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe password_input_test.ahk
+          & C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe password_input_test.ahk
+          if ($LASTEXITCODE -ne 0) { exit 1 }
 
       # Run Filepath Example with validation (Linux/macOS)
       - name: Run Filepath Example (Linux/macOS)
@@ -152,18 +156,21 @@ jobs:
         run: |
           echo "
           Run 'go run examples/example1.go'
-          Sleep, 5
+          Sleep, 5000
           Send, C:\\temp\\test_dir\\file1.txt{Enter}
-          Sleep, 5
+          Sleep, 1000
           WinGetText, OutputText, A
           IfInString, OutputText, Selected file: file1.txt
           {
               MsgBox, Test Passed!
+              ExitApp
           }
           Else
           {
               MsgBox, Test Failed!
-              ExitApp
+              ExitApp 1
           }
           " > filepath_test.ahk
-          C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe filepath_test.ahk
+          & C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe filepath_test.ahk
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+
