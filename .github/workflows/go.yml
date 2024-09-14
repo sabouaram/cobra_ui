@@ -76,6 +76,13 @@ jobs:
         run: |
           choco install autoit --yes
 
+      # Check AutoIt Installation and Path (Windows)
+      - name: Check AutoIt Installation (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          Get-Command AutoIt3.exe -ErrorAction Stop
+          Get-Command AutoIt3.exe | Select-Object -Property Source
+
       # Run Text Input example with validation (Windows)
       - name: Run Text Input example (Windows)
         if: runner.os == 'Windows'
