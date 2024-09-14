@@ -52,13 +52,5 @@ type UI interface {
 
 func New() UI {
 
-	return &ui{
-
-		cobra:     nil,
-		questions: nil,
-		index:     0,
-		input:     "",
-		cursor:    0,
-		errorMsg:  "",
-	}
+	return &ui{}
 }
