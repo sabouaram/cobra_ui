@@ -66,26 +66,6 @@ jobs:
           choco install autoit --yes
 
 
-
-      # Find AutoIt executable path (Windows)
-      - name: Find AutoIt executable path (Windows)
-        if: runner.os == 'Windows'
-        id: find_autoit_path
-        run: |
-          # Check default installation paths
-          $possiblePaths = @(
-            "C:\Program Files (x86)\AutoIt3\AutoIt3.exe",
-            "C:\Program Files (x86)\AutoIt3\AutoIt3_x64.exe",
-            "C:\ProgramData\chocolatey\lib\autoit\tools\AutoIt3.exe"
-          )
-          $autoItPath = $possiblePaths | Where-Object { Test-Path $_ }
-          if (-not $autoItPath) {
-            Write-Output "AutoIt executable not found."
-            exit 1
-          }
-          Write-Output "AutoIt executable found at $autoItPath"
-          echo "AUTOIT_PATH=$autoItPath" >> $GITHUB_ENV
-
       # Run Text Input example with validation (Windows)
       - name: Run Text Input example (Windows)
         if: runner.os == 'Windows'
@@ -105,7 +85,7 @@ jobs:
               MsgBox(16, "Test Failed", "The output is incorrect.")
               ExitApp 1
           ' > text_input_test.au3
-          & "$env:AUTOIT_PATH" text_input_test.au3
+          C:\Program Files (x86)\AutoIt3\AutoIt3.exe text_input_test.au3
           if ($LASTEXITCODE -ne 0) { exit 1 }
 
       # Run Password Input example with validation (Linux/macOS)
@@ -138,7 +118,7 @@ jobs:
               MsgBox(16, "Test Failed", "The output is incorrect.")
               ExitApp 1
           ' > password_input_test.au3
-          & "$env:AUTOIT_PATH" password_input_test.au3
+          C:\Program Files (x86)\AutoIt3\AutoIt3.exe password_input_test.au3
           if ($LASTEXITCODE -ne 0) { exit 1 }
 
       # Run Filepath Example with validation (Linux/macOS)
@@ -171,5 +151,5 @@ jobs:
               MsgBox(16, "Test Failed", "The file selection failed.")
               ExitApp 1
           ' > filepath_test.au3
-          & "$env:AUTOIT_PATH" filepath_test.au3
+          C:\Program Files (x86)\AutoIt3\AutoIt3.exe filepath_test.au3
           if ($LASTEXITCODE -ne 0) { exit 1 }
