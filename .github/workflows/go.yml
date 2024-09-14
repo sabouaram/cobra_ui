@@ -110,7 +110,7 @@ jobs:
         run: |
           expect <<EOF
           spawn go run examples/example2.go
-          expect "What is your preferred programming language?"
+          expect "$ "
           send -s "\033[B"  # down arrow to select the next option
           send "\r"      # press Enter
           expect "Selected choice: Python"
@@ -121,7 +121,7 @@ jobs:
         run: |
           expect <<EOF
           spawn go run examples/example2.go
-          expect "What is your preferred programming language?"
+          expect "$ "
           send -s "\033[B"  # down arrow to select the next option
           send "\r\n"    # press Enter
           expect "Selected choice: Python"
