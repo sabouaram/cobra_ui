@@ -112,7 +112,7 @@ jobs:
           expect <<EOF
           spawn go run examples/example2.go
           expect "$ "
-          send "\r"      # press Enter
+          send "Go\r"      # press Enter
           expect "Selected choice: Go"
           EOF
 
@@ -122,7 +122,7 @@ jobs:
           expect <<EOF
           spawn go run examples/example2.go
           expect "$ "
-          send "\r\n"    # press Enter
+          send "Go\r\n"    # press Enter
           expect "Selected choice: Go"
           EOF
 
