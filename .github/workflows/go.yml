@@ -65,11 +65,7 @@ jobs:
         run: |
           choco install autoit --yes
 
-      # List all installed Chocolatey packages (Windows)
-      - name: List Chocolatey packages (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          choco list --local-only
+
 
       # Find AutoIt executable path (Windows)
       - name: Find AutoIt executable path (Windows)
