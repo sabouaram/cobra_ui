@@ -111,7 +111,7 @@ jobs:
           expect <<EOF
           spawn go run examples/example2.go
           expect "$ "
-          send -s "\033[B"  # down arrow to select the next option
+          send -- {\033[B}  # down arrow to select the next option
           send "\r"      # press Enter
           expect "Selected choice: Python"
           EOF
@@ -122,7 +122,7 @@ jobs:
           expect <<EOF
           spawn go run examples/example2.go
           expect "$ "
-          send -s "\033[B"  # down arrow to select the next option
+          send -- {\033[B}  # down arrow to select the next option
           send "\r\n"    # press Enter
           expect "Selected choice: Python"
           EOF
