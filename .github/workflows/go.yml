@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - main
-
 jobs:
   test:
     strategy:
@@ -81,17 +80,29 @@ jobs:
         run: |
           Get-Command AutoHotkey.exe
 
+      # Run Text Input example with validation (Windows)
       - name: Run Text Input example (Windows)
         if: runner.os == 'Windows'
         run: |
           echo "
           Run 'go run examples/example3.go'
-          Sleep, 2000
+          Sleep, 5
           Send, 25{Enter}
-          Sleep, 1000
+          Sleep, 5
+          WinGetText, OutputText, A  ; Get the text from the active window
+          IfInString, OutputText, Your entered age is 25
+          {
+              MsgBox, Test Passed!
+          }
+          Else
+          {
+              MsgBox, Test Failed!
+              ExitApp
+          }
           " > text_input_test.ahk
-          C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe
+          C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe text_input_test.ahk
 
+      # Run Password Input example with validation (Linux/macOS)
       - name: Run Password Input example (Linux/macOS)
         if: runner.os != 'Windows'
         run: |
@@ -102,17 +113,29 @@ jobs:
           expect "Password entered => 123456"
           EOF
 
+      # Run Password Input example with validation (Windows)
       - name: Run Password Input example (Windows)
         if: runner.os == 'Windows'
         run: |
           echo "
           Run 'go run examples/example4.go'
-          Sleep, 2000
+          Sleep, 5
           Send, 123456{Enter}
-          Sleep, 1000
+          Sleep, 5
+          WinGetText, OutputText, A
+          IfInString, OutputText, Password entered => 123456
+          {
+              MsgBox, Test Passed!
+          }
+          Else
+          {
+              MsgBox, Test Failed!
+              ExitApp
+          }
           " > password_input_test.ahk
-          C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe
+          C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe password_input_test.ahk
 
+      # Run Filepath Example with validation (Linux/macOS)
       - name: Run Filepath Example (Linux/macOS)
         if: runner.os != 'Windows'
         run: |
@@ -123,13 +146,24 @@ jobs:
           expect "Selected file: file1.txt"
           EOF
 
+      # Run Filepath Example with validation (Windows)
       - name: Run Filepath Example (Windows)
         if: runner.os == 'Windows'
         run: |
           echo "
           Run 'go run examples/example1.go'
-          Sleep, 2000
+          Sleep, 5
           Send, C:\\temp\\test_dir\\file1.txt{Enter}
-          Sleep, 1000
+          Sleep, 5
+          WinGetText, OutputText, A
+          IfInString, OutputText, Selected file: file1.txt
+          {
+              MsgBox, Test Passed!
+          }
+          Else
+          {
+              MsgBox, Test Failed!
+              ExitApp
+          }
           " > filepath_test.ahk
-          C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe
+          C:\ProgramData\chocolatey\lib\autohotkey.portable\tools\AutoHotkey.exe filepath_test.ahk
