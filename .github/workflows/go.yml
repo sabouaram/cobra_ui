@@ -73,59 +73,6 @@ jobs:
         if: runner.os == 'Windows'
         run: echo "FILE_DIR=C:\\temp\\test_dir" >> $GITHUB_ENV
 
-      - name: Detect Down Arrow Key Sequence (Linux/macOS)
-        if: runner.os != 'Windows'
-        run: |
-          python3 -c "
-import sys
-import termios
-import tty
-import time
-
-def get_escape_sequence():
-    fd = sys.stdin.fileno()
-    old_settings = termios.tcgetattr(fd)
-    try:
-        tty.setraw(sys.stdin.fileno())
-        ch = sys.stdin.read(1)
-        if ch == '\x1b':
-            ch = sys.stdin.read(2)
-            return '\x1b' + ch
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    return ''
-
-print('Simulating down arrow key press...')
-time.sleep(1)  # Wait to simulate key press delay
-sequence = get_escape_sequence()
-print(f'Detected escape sequence: {sequence}')
-"
-          echo "DOWN_ARROW_SEQUENCE=$(python3 -c 'import sys; print(sys.stdin.read().strip())')" >> $GITHUB_ENV
-
-   
-      - name: Detect Down Arrow Key Sequence (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          python -c "
-from pynput import keyboard
-
-def on_press(key):
-    try:
-        print(f'Alphanumeric key {key.char} pressed')
-    except AttributeError:
-        print(f'Special key {key} pressed')
-
-def on_release(key):
-    if key == keyboard.Key.esc:
-        return False
-
-print('Press any key to capture its escape sequence...')
-with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
-    listener.join()
-"
-          echo "DOWN_ARROW_SEQUENCE=$(python -c 'import sys; print(sys.stdin.read().strip())')" >> $GITHUB_ENV
-
-
       - name: Run Text Input example (Linux/macOS)
         if: runner.os != 'Windows'
         run: |
@@ -171,10 +118,9 @@ with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
         run: |
           expect <<EOF
           spawn go run examples/example2.go
-          expect "$ "
-          send -- "$DOWN_ARROW_SEQUENCE"  # down arrow to select the next option
+          expect "What is your preferred programming language?"
           send "\r"      # press Enter
-          expect "Selected choice: Python"
+          expect "Selected choice: Go"
           EOF
 
       - name: Run Choices Example (Windows)
@@ -182,10 +128,9 @@ with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
         run: |
           expect <<EOF
           spawn go run examples/example2.go
-          expect "$ "
-          send -- "$DOWN_ARROW_SEQUENCE"  # down arrow to select the next option
+          expect "What is your preferred programming language?"
           send "\r\n"    # press Enter
-          expect "Selected choice: Python"
+          expect "Selected choice: Go"
           EOF
 
       - name: Run Filepath Example (Linux/macOS)
