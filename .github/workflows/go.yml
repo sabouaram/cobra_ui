@@ -1,0 +1,108 @@
+name: GO CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go 
+        uses: actions/setup-go@v4
+        with:
+          go-version: '>=1.21.0'
+
+      - name: Install dependencies
+        run: go mod tidy
+
+      - name: Install expect tool (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: sudo apt-get install expect
+
+      - name: Install expect tool (Windows)
+        if: runner.os == 'Windows'
+        run: choco install expect
+
+      - name: Create test directory (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          mkdir -p /tmp/test_dir
+          echo "file1.txt" > /tmp/test_dir/file1.txt
+          echo "file2.txt" > /tmp/test_dir/file2.txt
+
+      - name: Create test directory (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          New-Item -Path "C:\temp\test_dir" -ItemType Directory -Force
+          "file1.txt" | Out-File -FilePath "C:\temp\test_dir\file1.txt" -Force
+          "file2.txt" | Out-File -FilePath "C:\temp\test_dir\file2.txt" -Force
+
+      - name: Set environment variable for file path (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: echo "FILE_DIR=/tmp/test_dir" >> $GITHUB_ENV
+
+      - name: Set environment variable for file path (Windows)
+        if: runner.os == 'Windows'
+        run: echo "FILE_DIR=C:\\temp\\test_dir" >> $GITHUB_ENV
+
+      - name: Run Text Input example
+        run: |
+          expect <<EOF
+          spawn go run examples/example3.go
+          expect "Enter your age:"
+          send "25\r"
+          expect "Your entered age is 25"
+          EOF
+
+      - name: Run Password Input example
+        run: |
+          expect <<EOF
+          spawn go run examples/example4.go
+          expect "Enter your password: "
+          send "123456\r"
+          expect "Password entered => 123456"
+          EOF
+
+
+      - name: Run Choices Example
+        run: |
+          expect <<EOF
+          spawn go run examples/example2.go
+          expect "What is your preferred programming language?"
+          send "\033[B"  # down arrow to select the next option
+          send "\r"      # press Enter
+          expect "Selected choice: Python"
+          EOF
+
+      - name: Run Filepath Example (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          expect <<EOF
+          spawn go run examples/example1.go
+          expect "Select a file:"
+          send "$FILE_DIR/file1.txt\r"  # Send the file path
+          expect "Selected file: file1.txt"
+          EOF
+
+      - name: Run Filepath Example (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          expect <<EOF
+          spawn go run examples/example1.go
+          expect "Select a file:"
+          send "C:\\temp\\test_dir\\file1.txt\r"  # Send the file path
+          expect "Selected file: file1.txt"
+          EOF
