@@ -114,7 +114,8 @@ jobs:
           expect <<EOF
           spawn go run examples/example1.go
           expect "Select a file:"
-          send "$FILE_DIR\r"  # Send the file path
+          # Send the file path
+          send "$env(FILE_DIR)\r"
           expect "Selected file: file1.txt"
           EOF
 
