@@ -174,7 +174,7 @@ func main() {
 		},
 	})
 	ui.RunInteractiveUI()
-	if passwordEntered {
+	if passwordEntered == true {
 		fmt.Printf("Password entered => %s\n", pwd)
 	}
 
