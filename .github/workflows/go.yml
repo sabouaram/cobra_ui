@@ -70,8 +70,7 @@ jobs:
       - name: Run Text Input example (Windows)
         if: runner.os == 'Windows'
         run: |
-          cd "C:\\Program Files (x86)\\AutoIt3"
-          dir
+          dir "C:\Program Files (x86)\AutoIt3\Aut2Exe"
           echo '
           ; Open Command Prompt and wait for it to be ready
           Run("cmd.exe")
@@ -110,7 +109,8 @@ jobs:
           FileWrite("C:\\temp\\output.txt", $lastLine & @CRLF)
 
           ' > text_input_test.au3
-          & 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' text_input_test.au3
+          & 'C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2Exe.exe' /in "%CD%\ext_input_test.au3" /out "%CD%\program.exe" /nopack /comp 2 /Console
+          program.exe
           cd C:\\temp
           dir
 
