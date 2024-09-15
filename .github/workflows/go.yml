@@ -117,7 +117,7 @@ jobs:
 
           
           # Execute the command
-          Start-Process -FilePath $aut2exePath -ArgumentList $arguments -Wait -NoNewWindow
+          Start-Process -FilePath $aut2exePath -ArgumentList $arguments  -NoNewWindow
           
       - name: Verify Output
         if: runner.os == 'Windows'
