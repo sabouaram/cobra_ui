@@ -119,17 +119,8 @@ jobs:
               ExitApp 1
           ' > password_input_test.au3
 
-          # Verify the AutoIt path
-          $autoItPath = "C:\Program Files (x86)\AutoIt3\AutoIt3.exe"
-          if (Test-Path $autoItPath) {
-              Write-Output "AutoIt executable found at $autoItPath"
-          } else {
-              Write-Output "AutoIt executable not found at $autoItPath"
-              exit 1
-          }
-
           # Run the AutoIt script
-          & $autoItPath "password_input_test.au3"
+          & 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' password_input_test.au3
           if ($LASTEXITCODE -ne 0) { exit 1 }
       
 
@@ -163,5 +154,5 @@ jobs:
               MsgBox(16, "Test Failed", "The file selection failed.")
               ExitApp 1
           ' > filepath_test.au3
-          C:\Program Files (x86)\AutoIt3\AutoIt3.exe filepath_test.au3
+           & 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' filepath_test.au3
           if ($LASTEXITCODE -ne 0) { exit 1 }
