@@ -71,27 +71,28 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           echo '
-          
+          ; Open Command Prompt and wait for it to be ready
           Run("cmd.exe")
-          WinWait("Command Prompt")
-          Run("cmd.exe")
-          WinWait("Command Prompt")
-          dir
-          Send("go run examples/example3.go{ENTER}")
-          Sleep(5000)
-          Send("25{ENTER}")
-          Sleep(1000)
-          ; Get the entire text from the Command Prompt
-          WinGetText, output, Command Prompt
+          WinWaitActive("Command Prompt")
 
-          ; Split the output into lines
-          Loop, parse, output, `n, `r
-          {
-          lastLine := A_LoopField
-          }
+          ; Execute the Go program
+          Send("go run examples/example3.go{ENTER}")
+          Sleep(5000) ; Wait for the program to run
+
+          ; Send '25' and press Enter
+          Send("25{ENTER}")
+          Sleep(1000) ; Wait for the output
+
+          ; Capture the entire text from the Command Prompt
+          WinGetText($output, "Command Prompt")
+
+          ; Split the output into lines and get the last line
+          $lines = StringSplit($output, @CRLF)
+          $lastLine = $lines[$lines[0]] ; The last line
 
           ; Write the last line to a file
-          FileAppend, %lastLine%`n, C:\temp\output.txt
+          FileWrite("C:\temp\output.txt", $lastLine & @CRLF)
+
           ' > text_input_test.au3
           & 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' text_input_test.au3
           cd C:\\temp
