@@ -53,16 +53,16 @@ jobs:
           
       - name: Set up AutoIt
         if: runner.os == 'Windows'
+        shell: pwsh
         run: |
-          $installer = "$env:TEMP\autoit-v3-setup.exe"
-          Invoke-WebRequest -Uri "https://github.com/turbo/AutoIt-CI/releases/download/1/autoit-v3-setup.exe" -OutFile $installer
-          Start-Process -FilePath $installer -ArgumentList "/S" -NoNewWindow -Wait
+          choco install autoit
+      
 
       - name: Build AutoIt Script
         if: runner.os == 'Windows'
         run: |
-          Start-Process -FilePath "C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2exe.exe" -ArgumentList @("/in", "$env:GITHUB_WORKSPACE\ext_input_test.au3", "/out", "$env:GITHUB_WORKSPACE\program.exe", "/nopack", "/comp", "2", "/Console") -NoNewWindow -Wait
-
+          "C:\Program Files (x86)\AutoIt3\aut2exe\aut2exe.exe"  /in "%CD%\ext_input_test.au3" /out "%CD%\program.exe" /nopack /comp 2 /Console
+          
       - name: Set environment variable for file path (Linux/macOS)
         if: runner.os != 'Windows'
         run: echo "FILE_DIR=/tmp/test_dir" >> $GITHUB_ENV
