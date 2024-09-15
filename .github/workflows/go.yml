@@ -85,7 +85,7 @@ jobs:
               MsgBox(16, "Test Failed", "The output is incorrect.")
               ExitApp 1
           ' > text_input_test.au3
-          C:\Program Files (x86)\AutoIt3\AutoIt3.exe text_input_test.au3
+          & 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' text_input_test.au3
           if ($LASTEXITCODE -ne 0) { exit 1 }
 
       # Run Password Input example with validation (Linux/macOS)
