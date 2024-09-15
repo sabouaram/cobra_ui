@@ -110,9 +110,18 @@ jobs:
           ' > text_input_test.au3
           Start-Process -FilePath "C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2exe.exe" -ArgumentList @("/in", "$($env:CD)\ext_input_test.au3", "/out", "$($env:CD)\program.exe", "/nopack", "/comp", "2", "/Console") -NoNewWindow 
           dir
-          program.exe
-          cd C:\\temp
+          Write-Host "AutoIt script execution initiated."
           
+      - name: Verify Output
+        run: |
+          Write-Host "Checking directory contents..."
+          dir "$($env:CD)"
+          if (Test-Path "$($env:CD)\program.exe") {
+            Write-Host "program.exe found."
+          } else {
+            Write-Host "program.exe not found."
+            exit 1
+          }           
 
       # Run Password Input example with validation (Linux/macOS)
       - name: Run Password Input example (Linux/macOS)
