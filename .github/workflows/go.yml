@@ -50,6 +50,17 @@ jobs:
           New-Item -Path "C:\temp\test_dir" -ItemType Directory -Force
           "file1.txt" | Out-File -FilePath "C:\temp\test_dir\file1.txt" -Force
           "file2.txt" | Out-File -FilePath "C:\temp\test_dir\file2.txt" -Force
+
+      - name: Install AutoIt
+        if: runner.os == 'Windows'
+        run: |
+          Invoke-WebRequest -Uri https://www.autoitscript.com/files/autoit-v3.3.14.5-setup.exe -OutFile autoit-installer.exe
+          Start-Process -FilePath .\autoit-installer.exe -Args '/SILENT' -NoNewWindow -Wait
+
+      - name: Run AutoIt Script
+        if: runner.os == 'Windows'
+        run: |
+          "C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2exe.exe" "/in" "%CD%\ext_input_test.au3" "/out" "%CD%\program.exe" "/nopack" "/comp" "2" "/Console"
  
 
       - name: Set environment variable for file path (Linux/macOS)
@@ -60,80 +71,15 @@ jobs:
         if: runner.os == 'Windows'
         run: echo "FILE_DIR=C:\\temp\\test_dir" >> $GITHUB_ENV
 
-      # Install AutoIt on Windows
-      - name: Install AutoIt (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          choco install autoit 
-          Move-Item -Path "C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2Exe.exe" -Destination "D:\a\cobra_ui\cobra_ui\"
-          dir "C:\ProgramData\chocolatey\lib\autoit"
+
 
 
       # Run Text Input example with validation (Windows)
       - name: Run Text Input example (Windows)
         if: runner.os == 'Windows'
         run: |
-          echo '
-          ; Open Command Prompt and wait for it to be ready
-          Run("cmd.exe")
-          If Not WinWaitActive("[CLASS:ConsoleWindowClass]", "", 10) Then
-              ConsoleWrite("Failed to open Command Prompt!" & @CRLF)
-              Exit
-          EndIf
+          dir
           
-          WinActivate("[CLASS:ConsoleWindowClass]")
-          ConsoleWrite("Command Prompt opened!" & @CRLF)
-          
-          ; Execute the Go program
-          Send('cd /d D:\\a\\cobra_ui\\cobra_ui{ENTER}')
-          ConsoleWrite("Changing directory to D:\\a\\cobra_ui\\cobra_ui..." & @CRLF)
-          Sleep(1000)
-          ConsoleWrite("Running Go program: go run examples\\example3.go..." & @CRLF)
-          Send("go run examples\\example3.go{ENTER}")
-          
-          ; Wait for the program to run (Adjust as necessary)
-          Sleep(5000)
-          
-          ; Send '25' as input
-          ConsoleWrite("Sending '25' as input..." & @CRLF)
-          Send("25{ENTER}")
-          
-          ; Wait for the output (Adjust as necessary)
-          Sleep(5000)
-          
-          ; Capture the entire text from the Command Prompt
-          $output = WinGetText("[CLASS:ConsoleWindowClass]")
-          If @error Then
-              ConsoleWrite("Failed to capture output from Command Prompt!" & @CRLF)
-              Exit
-          EndIf
-          ConsoleWrite("Captured output from Command Prompt..." & @CRLF)
-          
-          ; Write captured output for debugging
-          If Not FileWrite("C:\\temp\\debug_output.txt", $output & @CRLF) Then
-              ConsoleWrite("Failed to write to debug_output.txt!" & @CRLF)
-              Exit
-          EndIf
-          ConsoleWrite("Captured output written to C:\\temp\\debug_output.txt" & @CRLF)
-          
-          ; Split the output into lines and get the last line
-          $lines = StringSplit($output, @CRLF)
-          If $lines[0] > 0 Then
-              $lastLine = $lines[$lines[0]] ; The last line
-              ; Write the last line to a file
-              If Not FileWrite("C:\\temp\\output.txt", $lastLine & @CRLF) Then
-                  ConsoleWrite("Failed to write to output.txt!" & @CRLF)
-                  Exit
-              EndIf
-              ConsoleWrite("Last line written to C:\\temp\\output.txt" & @CRLF)
-          Else
-              ConsoleWrite("No output captured!" & @CRLF)
-          EndIf
-          
-          Exit
-          
-
-          ' > text_input_test.au3
 
           
    
