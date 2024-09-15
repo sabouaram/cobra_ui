@@ -71,14 +71,26 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           echo '
+          
+          Run("cmd.exe")
+          WinWait("Command Prompt")
           Run("cmd.exe")
           WinWait("Command Prompt")
           Send("go run examples/example3.go{ENTER}")
           Sleep(5000)
           Send("25{ENTER}")
           Sleep(1000)
-          WinGetText("Command Prompt", output)
-          FileWrite("C:\\temp\\output.txt", output)
+          ; Get the entire text from the Command Prompt
+          WinGetText, output, Command Prompt
+
+          ; Split the output into lines
+          Loop, parse, output, `n, `r
+          {
+          lastLine := A_LoopField
+          }
+
+          ; Write the last line to a file
+          FileAppend, %lastLine%`n, C:\temp\output.txt
           ' > text_input_test.au3
           & 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' text_input_test.au3
           cd C:\\temp
