@@ -78,15 +78,22 @@ jobs:
           Send("25{ENTER}")
           Sleep(1000)
           WinGetText("Command Prompt", output)
-          IfInString(output, "Your entered age is 25") Then
-              MsgBox(0, "Test Passed", "The output is correct.")
-              ExitApp
-          Else
-              MsgBox(16, "Test Failed", "The output is incorrect.")
-              ExitApp 1
+          FileWrite("output.txt", output)
           ' > text_input_test.au3
           & 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' text_input_test.au3
-          if ($LASTEXITCODE -ne 0) { exit 1 }
+          $outputFile = "output.txt"
+          if (Test-Path $outputFile) {
+              $outputContent = Get-Content $outputFile
+              if ($outputContent -match "Your entered age is 25") {
+               Write-Output "Test Passed: The output is correct."
+              } else {
+               Write-Output "Test Failed: The output is incorrect."
+               exit 1
+              } 
+          } else {
+              Write-Output "Output file not found."
+              exit 1
+          }    
 
       # Run Password Input example with validation (Linux/macOS)
       - name: Run Password Input example (Linux/macOS)
