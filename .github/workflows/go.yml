@@ -116,7 +116,7 @@ jobs:
 
           
           # Execute the command
-           "`"$aut2exePath`""  $arguments  
+           echo "`"$aut2exePath`" $arguments"    
           
       - name: Verify Output
         if: runner.os == 'Windows'
