@@ -81,7 +81,7 @@ jobs:
           FileWrite("C:\\temp\\output.txt", output)
           ' > text_input_test.au3
           & 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' text_input_test.au3
-          cd C:\\temp\\output.txt
+          cd C:\\temp
           dir
 
       # Run Password Input example with validation (Linux/macOS)
