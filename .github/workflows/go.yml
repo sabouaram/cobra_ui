@@ -78,10 +78,10 @@ jobs:
           Send("25{ENTER}")
           Sleep(1000)
           WinGetText("Command Prompt", output)
-          FileWrite("output.txt", output)
+          FileWrite("C:\\temp\\output.txt", output)
           ' > text_input_test.au3
           & 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' text_input_test.au3
-          $outputFile = "output.txt"
+          $outputFile = "C:\\temp\\output.txt"
           if (Test-Path $outputFile) {
               $outputContent = Get-Content $outputFile
               if ($outputContent -match "Your entered age is 25") {
