@@ -70,6 +70,7 @@ jobs:
       - name: Run Text Input example (Windows)
         if: runner.os == 'Windows'
         run: |
+          dir "C:\Program Files (x86)\AutoIt3\Aut2Exe"
           echo '
           ; Open Command Prompt and wait for it to be ready
           Run("cmd.exe")
