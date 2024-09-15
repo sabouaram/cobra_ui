@@ -70,10 +70,9 @@ jobs:
       - name: Run Text Input example (Windows)
         if: runner.os == 'Windows'
         run: |
-          dir
           echo '
           ; Open Command Prompt and wait for it to be ready
-          Run("cmd.exe")
+          Run("cmd.exe", "D:\a\cobra_ui\cobra_ui")
           WinWait("Command Prompt")
           WinActivate("Command Prompt")
 
