@@ -70,6 +70,7 @@ jobs:
       - name: Run Text Input example (Windows)
         if: runner.os == 'Windows'
         run: |
+          dir
           echo '
           ; Open Command Prompt and wait for it to be ready
           Run("cmd.exe")
@@ -77,9 +78,9 @@ jobs:
           WinActivate("Command Prompt")
 
           ; Execute the Go program
-          Send('cd /d D:\a\cobra_ui\cobra_ui{ENTER}')
+          Send('cd /d D:\\a\\cobra_ui\\cobra_ui{ENTER}')
           Sleep(1000) ;
-          Send("go run examples/example3.go{ENTER}")
+          Send("go run examples\\example3.go{ENTER}")
           Sleep(5000) ; Wait for the program to run
 
           ; Send '25' and press Enter
@@ -94,7 +95,7 @@ jobs:
           $lastLine = $lines[$lines[0]] ; The last line
 
           ; Write the last line to a file
-          FileWrite("C:\temp\output.txt", $lastLine & @CRLF)
+          FileWrite("C:\\temp\\output.txt", $lastLine & @CRLF)
 
           ' > text_input_test.au3
           & 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' text_input_test.au3
