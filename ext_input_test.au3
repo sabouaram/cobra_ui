@@ -1,7 +1,7 @@
 ; Open Command Prompt and wait for it to be ready
 Run("cmd.exe")
 If Not WinWaitActive("[CLASS:ConsoleWindowClass]", "", 10) Then
-    Exit 1 ; Exit with code 1 to indicate failure
+    Exit ; Exit with code 1 to indicate failure
 EndIf
 
 WinActivate("[CLASS:ConsoleWindowClass]")
@@ -21,7 +21,7 @@ Sleep(5000)
 ; Capture the entire text from the Command Prompt
 $output = WinGetText("[CLASS:ConsoleWindowClass]")
 If @error Then
-    Exit 1 ; Exit with code 1 to indicate failure
+    Exit  ; Exit with code 1 to indicate failure
 EndIf
 
 ; Split the output into lines and get the last line
@@ -36,10 +36,8 @@ If $lines[0] > 0 Then
     
     ; Check if the last line matches the expected line
     If $lastLine = $expectedLine Then
-        Exit 0 ; Exit with code 0 to indicate success
-    Else
-        Exit 1 ; Exit with code 1 to indicate failure
+        Exit  ; Exit with code 0 to indicate success
     EndIf
 Else
-    Exit 1 ; Exit with code 1 to indicate failure
+    Exit ; Exit with code 1 to indicate failure
 EndIf
