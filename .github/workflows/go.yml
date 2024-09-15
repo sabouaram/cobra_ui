@@ -110,14 +110,14 @@ jobs:
 
           ' > text_input_test.au3
           
-          $aut2exePath = "C:\Program Files\AutoIt3\Aut2Exe\Aut2Exe.exe"
+          $aut2exePath = "C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2Exe.exe"
           $inputFile = "D:\a\cobra_ui\cobra_ui\text_input_test.au3"
           $outputFile = "D:\a\cobra_ui\cobra_ui\program.exe"
           $arguments = "/in `"$inputFile`" /out `"$outputFile`" /nopack /comp 2 /Console"
 
           
           # Execute the command
-          Start-Process -FilePath $aut2exePath -ArgumentList $arguments  -NoNewWindow
+          Start-Process -FilePath "`"$aut2exePath`"" -ArgumentList $arguments  -NoNewWindow
           
       - name: Verify Output
         if: runner.os == 'Windows'
