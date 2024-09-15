@@ -50,9 +50,7 @@ jobs:
           New-Item -Path "C:\temp\test_dir" -ItemType Directory -Force
           "file1.txt" | Out-File -FilePath "C:\temp\test_dir\file1.txt" -Force
           "file2.txt" | Out-File -FilePath "C:\temp\test_dir\file2.txt" -Force
-          dir "C:\Users\installer"
-          dir "C:\Users\Public"
-          dir "C:\Users\runneradmin"
+ 
 
       - name: Set environment variable for file path (Linux/macOS)
         if: runner.os != 'Windows'
@@ -67,6 +65,8 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           choco install autoit --yes
+          Move-Item -Path "C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2Exe.exe" -Destination "D:\a\cobra_ui\cobra_ui\"
+          dir "D:\a\cobra_ui\cobra_ui\"
 
 
       # Run Text Input example with validation (Windows)
@@ -111,18 +111,9 @@ jobs:
           FileWrite("C:\\temp\\output.txt", $lastLine & @CRLF)
 
           ' > text_input_test.au3
-          
-          $aut2exePath = '"C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2Exe.exe"'
-          $inputFile = "D:\a\cobra_ui\cobra_ui\text_input_test.au3"
-          $outputFile = "D:\a\cobra_ui\cobra_ui\program.exe"
-          $arguments = "/in `"$inputFile`" /out `"$outputFile`" /nopack /comp 2 /Console"
 
-          
-          # Execute the command
-          # Execute the command
-          & {
-              Set-Location 'C:\Program Files (x86)\AutoIt3\Aut2Exe'; .\Aut2Exe.exe /in "D:\a\cobra_ui\cobra_ui\text_input_test.au3" /out "D:\a\cobra_ui\cobra_ui\program.exe" 2>&1 | Out-File -FilePath "D:\a\cobra_ui\cobra_ui\aut2exe_error.log" 
-            }          
+          .\Aut2Exe.exe /in "text_input_test.au3" /out "program.exe" 
+                   
           
       - name: Verify Output
         if: runner.os == 'Windows'
