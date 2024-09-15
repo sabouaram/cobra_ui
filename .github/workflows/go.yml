@@ -50,18 +50,18 @@ jobs:
           New-Item -Path "C:\temp\test_dir" -ItemType Directory -Force
           "file1.txt" | Out-File -FilePath "C:\temp\test_dir\file1.txt" -Force
           "file2.txt" | Out-File -FilePath "C:\temp\test_dir\file2.txt" -Force
-
-      - name: Install AutoIt
+          
+      - name: Set up AutoIt
         if: runner.os == 'Windows'
         run: |
-          Invoke-WebRequest -Uri https://www.autoitscript.com/files/autoit-v3.3.14.5-setup.exe -OutFile autoit-installer.exe
-          Start-Process -FilePath .\autoit-installer.exe -Args '/SILENT' -NoNewWindow -Wait
+          $installer = "$env:TEMP\autoit-v3-setup.exe"
+          Invoke-WebRequest -Uri "https://github.com/turbo/AutoIt-CI/releases/download/1/autoit-v3-setup.exe" -OutFile $installer
+          Start-Process -FilePath $installer -ArgumentList "/S" -NoNewWindow -Wait
 
-      - name: Run AutoIt Script
+      - name: Build AutoIt Script
         if: runner.os == 'Windows'
         run: |
-          "C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2exe.exe" "/in" "%CD%\ext_input_test.au3" "/out" "%CD%\program.exe" "/nopack" "/comp" "2" "/Console"
- 
+          Start-Process -FilePath "C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2exe.exe" -ArgumentList @("/in", "$env:GITHUB_WORKSPACE\ext_input_test.au3", "/out", "$env:GITHUB_WORKSPACE\program.exe", "/nopack", "/comp", "2", "/Console") -NoNewWindow -Wait
 
       - name: Set environment variable for file path (Linux/macOS)
         if: runner.os != 'Windows'
