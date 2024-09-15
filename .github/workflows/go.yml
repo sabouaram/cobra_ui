@@ -110,11 +110,12 @@ jobs:
 
           ; Write the last line to a file
           FileWrite("C:\\temp\\output.txt", $lastLine & @CRLF)
+          Exit
 
           ' > text_input_test.au3
 
           Start-Process -FilePath '.\Aut2Exe.exe' -ArgumentList '/in "text_input_test.au3" /out "program.exe"' -Wait -NoNewWindow -PassThru
-
+          
                    
           
       - name: Verify Output
