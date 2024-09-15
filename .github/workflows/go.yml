@@ -73,7 +73,8 @@ jobs:
           echo '
           ; Open Command Prompt and wait for it to be ready
           Run("cmd.exe")
-          WinWaitActive("Command Prompt")
+          WinWait("Command Prompt")
+          WinActivate("Command Prompt")
 
           ; Execute the Go program
           Send("go run examples/example3.go{ENTER}")
@@ -81,7 +82,7 @@ jobs:
 
           ; Send '25' and press Enter
           Send("25{ENTER}")
-          Sleep(1000) ; Wait for the output
+          Sleep(5000) ; Wait for the output
 
           ; Capture the entire text from the Command Prompt
           WinGetText($output, "Command Prompt")
