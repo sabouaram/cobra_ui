@@ -108,7 +108,7 @@ jobs:
           FileWrite("C:\\temp\\output.txt", $lastLine & @CRLF)
 
           ' > text_input_test.au3
-          & "$env:HOMEDRIVE\Program Files (x86)\AutoIt3\aut2exe\aut2exe.exe" /in "$env:CD\text_input_test.au3" /out "$env:CD\program.exe" /nopack /comp 2 /Console
+          & "C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2exe.exe" /in "$env:CD\text_input_test.au3" /out "$env:CD\program.exe" /nopack /comp 2 /Console
           dir
           Write-Host "AutoIt script execution initiated."
           
