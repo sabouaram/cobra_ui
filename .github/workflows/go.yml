@@ -76,19 +76,30 @@ jobs:
           Run("cmd.exe")
           WinWait("Command Prompt")
           WinActivate("Command Prompt")
+          ConsoleWrite("Command Prompt opened!" & @CRLF)
+
 
           ; Execute the Go program
           Send('cd /d D:\\a\\cobra_ui\\cobra_ui{ENTER}')
+          ConsoleWrite("Changing directory to D:\\a\\cobra_ui\\cobra_ui..." & @CRLF)
           Sleep(1000) ;
+          ConsoleWrite("Running Go program: go run examples\\example3.go..." & @CRLF)
           Send("go run examples\\example3.go{ENTER}")
           Sleep(5000) ; Wait for the program to run
 
           ; Send '25' and press Enter
+          ConsoleWrite("Sending '25' as input..." & @CRLF)
           Send("25{ENTER}")
           Sleep(5000) ; Wait for the output
 
           ; Capture the entire text from the Command Prompt
-          WinGetText($output, "Command Prompt")
+          $output = WinGetText("Command Prompt")
+          ConsoleWrite("Captured output from Command Prompt..." & @CRLF)
+
+          ; Write captured output for debugging
+          FileWrite("C:\\temp\\debug_output.txt", $output & @CRLF)
+          ConsoleWrite("Captured output written to C:\\temp\\debug_output.txt" & @CRLF)
+
 
           ; Split the output into lines and get the last line
           $lines = StringSplit($output, @CRLF)
