@@ -9,10 +9,6 @@ WinActivate("[CLASS:ConsoleWindowClass]")
 ConsoleWrite("Command Prompt opened!" & @CRLF)
 
 ; Execute the Go program
-Send('cd /d D:\\a\\cobra_ui\\cobra_ui{ENTER}')
-ConsoleWrite("Changing directory to D:\\a\\cobra_ui\\cobra_ui..." & @CRLF)
-Sleep(1000)
-ConsoleWrite("Running Go program: go run examples\\example3.go..." & @CRLF)
 Send("go run examples\\example3.go{ENTER}")
 
 ; Wait for the program to run (Adjust as necessary)
