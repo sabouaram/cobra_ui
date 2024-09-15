@@ -50,7 +50,9 @@ jobs:
           New-Item -Path "C:\temp\test_dir" -ItemType Directory -Force
           "file1.txt" | Out-File -FilePath "C:\temp\test_dir\file1.txt" -Force
           "file2.txt" | Out-File -FilePath "C:\temp\test_dir\file2.txt" -Force
-          dir "C:\Users"
+          dir "C:\Users\installer"
+          dir "C:\Users\Public"
+          dir "C:\Users\runneradmin"
 
       - name: Set environment variable for file path (Linux/macOS)
         if: runner.os != 'Windows'
