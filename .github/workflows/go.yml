@@ -108,7 +108,7 @@ jobs:
           FileWrite("C:\\temp\\output.txt", $lastLine & @CRLF)
 
           ' > text_input_test.au3
-          Start-Process -FilePath "C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2exe.exe" -ArgumentList @("/in", "$($env:CD)\ext_input_test.au3", "/out", "$($env:CD)\program.exe", "/nopack", "/comp", "2", "/Console") -NoNewWindow 
+          Start-Process -FilePath "C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2exe.exe" -ArgumentList @("/in", "$($env:CD)\text_input_test.au3", "/out", "$($env:CD)\program.exe", "/nopack", "/comp", "2", "/Console") -NoNewWindow 
           dir
           Write-Host "AutoIt script execution initiated."
           
