@@ -109,7 +109,7 @@ jobs:
 
           ' > text_input_test.au3
           
-          $aut2exePath = "C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2Exe.exe"
+          $aut2exePath = '"C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2Exe.exe"'
           $inputFile = "D:\a\cobra_ui\cobra_ui\text_input_test.au3"
           $outputFile = "D:\a\cobra_ui\cobra_ui\program.exe"
           $arguments = "/in `"$inputFile`" /out `"$outputFile`" /nopack /comp 2 /Console"
