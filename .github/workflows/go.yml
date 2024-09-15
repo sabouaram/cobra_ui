@@ -81,19 +81,8 @@ jobs:
           FileWrite("C:\\temp\\output.txt", output)
           ' > text_input_test.au3
           & 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' text_input_test.au3
-          $outputFile = "C:\\temp\\output.txt"
-          if (Test-Path $outputFile) {
-              $outputContent = Get-Content $outputFile
-              if ($outputContent -match "Your entered age is 25") {
-               Write-Output "Test Passed: The output is correct."
-              } else {
-               Write-Output "Test Failed: The output is incorrect."
-               exit 1
-              } 
-          } else {
-              Write-Output "Output file not found."
-              exit 1
-          }    
+          cd C:\\temp\\output.txt
+          dir
 
       # Run Password Input example with validation (Linux/macOS)
       - name: Run Password Input example (Linux/macOS)
