@@ -109,8 +109,8 @@ jobs:
           FileWrite("C:\\temp\\output.txt", $lastLine & @CRLF)
 
           ' > text_input_test.au3
-          cd "C:\Program Files (x86)\AutoIt3\Aut2Exe\"
-          $command = 'Aut2exe.exe /in D:\a\cobra_ui\cobra_ui\text_input_test.au3 /out D:\a\cobra_ui\cobra_ui\program.exe /nopack /comp 2 /Console'
+          
+          $command = '"C:\Program Files (x86)\AutoIt3\Aut2Exe\"  /in D:\a\cobra_ui\cobra_ui\text_input_test.au3 /out D:\a\cobra_ui\cobra_ui\program.exe /nopack /comp 2 /Console'
           Write-Host "Running command: $command"
           Invoke-Expression $command
           
