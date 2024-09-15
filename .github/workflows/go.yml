@@ -76,6 +76,7 @@ jobs:
           WinWait("Command Prompt")
           Run("cmd.exe")
           WinWait("Command Prompt")
+          dir
           Send("go run examples/example3.go{ENTER}")
           Sleep(5000)
           Send("25{ENTER}")
