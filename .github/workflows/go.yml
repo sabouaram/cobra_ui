@@ -113,6 +113,7 @@ jobs:
           Write-Host "AutoIt script execution initiated."
           
       - name: Verify Output
+        if: runner.os == 'Windows'
         run: |
           Write-Host "Checking directory contents..."
           dir "$($env:CD)"
