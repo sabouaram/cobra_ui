@@ -72,11 +72,13 @@ jobs:
         run: |
           echo '
           ; Open Command Prompt and wait for it to be ready
-          Run("cmd.exe", "D:\a\cobra_ui\cobra_ui")
+          Run("cmd.exe")
           WinWait("Command Prompt")
           WinActivate("Command Prompt")
 
           ; Execute the Go program
+          Send('cd /d D:\a\cobra_ui\cobra_ui{ENTER}')
+          Sleep(1000) ;
           Send("go run examples/example3.go{ENTER}")
           Sleep(5000) ; Wait for the program to run
 
