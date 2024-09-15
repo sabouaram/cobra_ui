@@ -116,7 +116,9 @@ jobs:
 
           
           # Execute the command
-           echo "$aut2exePath $arguments"    
+           echo "$aut2exePath $arguments"  
+           $command = "$aut2exePath $arguments"
+           Invoke-Expression $command
           
       - name: Verify Output
         if: runner.os == 'Windows'
