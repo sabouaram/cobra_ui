@@ -64,8 +64,8 @@ jobs:
       - name: Install AutoIt (Windows)
         if: runner.os == 'Windows'
         run: |
-          choco install autoit --yes
-          dir "C:\Users\runneradmin\AppData\Local"
+          choco install autoit 
+          choco install autoit.aut2exe
           Move-Item -Path "C:\Program Files (x86)\AutoIt3\Aut2Exe\Aut2Exe.exe" -Destination "D:\a\cobra_ui\cobra_ui\"
           dir "D:\a\cobra_ui\cobra_ui\"
 
