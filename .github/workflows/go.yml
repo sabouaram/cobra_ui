@@ -81,7 +81,7 @@ jobs:
         shell: cmd
         run: |
           program.exe
-          dir "C:\\temp\\"
+          
           
 
           
