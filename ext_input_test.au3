@@ -1,11 +1,9 @@
 ; Start cmd.exe
 Local $cmd = Run("cmd.exe", "", @SW_SHOW, $STDIN_CHILD + $STDOUT_CHILD)
 
-; Wait for the command prompt window to be ready
-If Not WinWaitActive("[CLASS:ConsoleWindowClass]", "", 10) Then
-    ConsoleWrite("CMD Failed." & @CRLF)
-    Exit(1)
-EndIf
+ConsoleWrite("here." & @CRLF)
+
+
 
 ; Activate the command prompt window
 WinActivate("[CLASS:ConsoleWindowClass]")
