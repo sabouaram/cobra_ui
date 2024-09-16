@@ -1,13 +1,14 @@
 ; Open Command Prompt and wait for it to be ready
 Run("cmd.exe")
-If Not WinWaitActive("[CLASS:ConsoleWindowClass]", "", 10) Then
-    Exit ; Exit with code 1 to indicate failure
-EndIf
+If Not WinWaitActive("[CLASS:ConsoleWindowClass]", "", 10) Then Exit (1)
+
 
 WinActivate("[CLASS:ConsoleWindowClass]")
 
 ; Execute the Go example
 Send("go run examples\example3.go{ENTER}")
+
+ConsoleWrite("Running Go Example." & @CRLF)
 
 ; Wait for the program to run (Adjust as necessary)
 Sleep(5000)
@@ -15,14 +16,14 @@ Sleep(5000)
 ; Send '25' as input
 Send("25{ENTER}")
 
+ConsoleWrite("Sending argument." & @CRLF)
+
 ; Wait for the output (Adjust as necessary)
 Sleep(5000)
 
 ; Capture the entire text from the Command Prompt
 $output = WinGetText("[CLASS:ConsoleWindowClass]")
-If @error Then
-    Exit  ; Exit with code 1 to indicate failure
-EndIf
+
 
 ; Split the output into lines and get the last line
 $lines = StringSplit($output, @CRLF)
@@ -33,11 +34,15 @@ If $lines[0] > 0 Then
     
     ; Expected last line
     $expectedLine = "Your entered age is 25"
+
+    
     
     ; Check if the last line matches the expected line
-    If $lastLine = $expectedLine Then
-        Exit  ; Exit with code 0 to indicate success
+    If $lastLine = $expectedLine Then 
+        ConsoleWrite("Success." & @CRLF)
+        Exit  
     EndIf
 Else
-    Exit ; Exit with code 1 to indicate failure
+    ConsoleWrite("Fail." & @CRLF)
+    Exit (1)
 EndIf
