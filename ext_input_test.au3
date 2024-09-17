@@ -3,7 +3,7 @@
 
 ; Path to your Go program
 Local $goProgram = "examples\example3.go"
-Local $outputFile = @TempDir & "\output.txt"
+Local $outputFile = "C:\temp\test_dir\file1.txt"
 
 ; Start cmd.exe and run the Go program with output redirection
 Local $cmdPath = @ComSpec & ' /C "go run ' & $goProgram & ' > ' & $outputFile & '"'
