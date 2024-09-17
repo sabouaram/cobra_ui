@@ -6,7 +6,7 @@ Local $goProgram = "examples\example3.go"
 
 ; Start cmd.exe and run the Go program
 Local $cmdPath = @ComSpec & ' /C "go run ' & $goProgram & '"'
-Local $cmd = Run($cmdPath, "", @SW_HIDE, $STDIN_CHILD + $STDOUT_CHILD + $STDERR_CHILD)
+Local $cmd = Run($cmdPath, "", @SW_SHOWNORMAL, $STDIN_CHILD + $STDOUT_CHILD + $STDERR_CHILD)
 
 ; Check if the process was created successfully
 If $cmd = 0 Then
@@ -29,8 +29,9 @@ While True
     ; Check if the prompt is detected
     If StringInStr($line, "Enter your age:") Then
         ; Send the input '25' followed by ENTER to the Go program
-        StdinWrite($cmd, "25" & @CRLF)
+        StdinWrite($cmd, "25")
         ConsoleWrite("Sending input '25' to the Go program." & @CRLF)
+        Send("{ENTER}")
         $promptDetected = True
     EndIf
 
