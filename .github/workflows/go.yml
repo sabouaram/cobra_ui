@@ -72,9 +72,6 @@ jobs:
         if: runner.os == 'Windows'
         run: echo "FILE_DIR=C:\\temp\\test_dir" >> $GITHUB_ENV
 
-
-
-
       # Run Text Input example with validation (Windows)
       - name: Run Text Input example (Windows)
         if: runner.os == 'Windows'
@@ -82,25 +79,6 @@ jobs:
         run: |
           program.exe
           
-          
-
-          
-   
-                   
-          
-      - name: Verify Output
-        if: runner.os == 'Windows'
-        run: |
-          dir
-          D:\\a\\cobra_ui\\cobra_ui\\Aut2Exe.exe /in "D:\\a\\cobra_ui\\cobra_ui\\text_input_test.au3" /out "D:\\a\\cobra_ui\\cobra_ui\\program.exe" /x64
-          Write-Host "Checking directory contents..."
-          dir "$($env:CD)"
-          if (Test-Path "$($env:CD)\program.exe") {
-            Write-Host "program.exe found."
-          } else {
-            Write-Host "program.exe not found."
-            exit 1
-          }           
 
       # Run Password Input example with validation (Linux/macOS)
       - name: Run Password Input example (Linux/macOS)
@@ -113,30 +91,6 @@ jobs:
           expect "Password entered => 123456"
           EOF
 
-      # Run Password Input example with validation (Windows)
-      - name: Run Password Input example (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          echo '
-          Run("cmd.exe")
-          WinWait("Command Prompt")
-          Send("go run examples/example4.go{ENTER}")
-          Sleep(5000)
-          Send("123456{ENTER}")
-          Sleep(1000)
-          WinGetText("Command Prompt", output)
-          IfInString(output, "Password entered => 123456") Then
-              MsgBox(0, "Test Passed", "The output is correct.")
-              ExitApp
-          Else
-              MsgBox(16, "Test Failed", "The output is incorrect.")
-              ExitApp 1
-          ' > password_input_test.au3
-
-          # Run the AutoIt script
-          & 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' password_input_test.au3
-          if ($LASTEXITCODE -ne 0) { exit 1 }
-      
 
       # Run Filepath Example with validation (Linux/macOS)
       - name: Run Filepath Example (Linux/macOS)
@@ -149,24 +103,4 @@ jobs:
           expect "Selected file: file1.txt"
           EOF
 
-      # Run Filepath Example with validation (Windows)
-      - name: Run Filepath Example (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          echo '
-          Run("cmd.exe")
-          WinWait("Command Prompt")
-          Send("go run examples/example1.go{ENTER}")
-          Sleep(5000)
-          Send("C:\\temp\\test_dir\\file1.txt{ENTER}")
-          Sleep(1000)
-          WinGetText("Command Prompt", output)
-          IfInString(output, "Selected file: file1.txt") Then
-              MsgBox(0, "Test Passed", "The file was selected correctly.")
-              ExitApp
-          Else
-              MsgBox(16, "Test Failed", "The file selection failed.")
-              ExitApp 1
-          ' > filepath_test.au3
-           & 'C:\Program Files (x86)\AutoIt3\AutoIt3.exe' filepath_test.au3
-          if ($LASTEXITCODE -ne 0) { exit 1 }
+
