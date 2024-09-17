@@ -75,7 +75,6 @@ jobs:
       # Run Text Input example with validation (Windows)
       - name: Run Text Input example (Windows)
         if: runner.os == 'Windows'
-        shell: cmd
         run: |
           program.exe
           
