@@ -1,5 +1,5 @@
 ; Run cmd.exe and execute 'go run' in it
-Local $cmd = Run(@ComSpec & " /c go run examples\example3.go", "", @SW_SHOW, $STDIN_CHILD + $STDOUT_CHILD + $STDERR_CHILD)
+Local $cmd = Run("go run examples\example3.go", "", @SW_SHOW, $STDIN_CHILD + $STDOUT_CHILD + $STDERR_CHILD)
 
 ; Check if the process was created successfully
 If $cmd = 0 Then
