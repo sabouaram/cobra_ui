@@ -31,7 +31,7 @@ While True
         ; Send the input '25' followed by ENTER to the Go program
         StdinWrite($cmd, "25")
         ConsoleWrite("Sending input '25' to the Go program." & @CRLF)
-        Send("{ENTER}")
+        StdinWrite($pid, @CRLF)
         $promptDetected = True
     EndIf
 
@@ -41,8 +41,7 @@ While True
         Exit(0)
     EndIf
 
-    ; Optional
-    Sleep(100)
+
 WEnd
 
 ; If the loop ends without successful completion
