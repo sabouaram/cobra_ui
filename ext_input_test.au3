@@ -7,6 +7,7 @@ If $cmd = 0 Then
     Exit(1)
 EndIf
 
+
 ConsoleWrite("Go example started successfully." & @CRLF)
 
 ; Wait for the Go program to initialize
