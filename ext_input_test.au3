@@ -1,7 +1,7 @@
-; Include necessary constants
+; Include constants
 #include <Constants.au3>
 
-; Path to your Go program
+; 
 Local $goProgram = "examples\example3.go"
 Local $outputFile = "C:\temp\test_dir\file1.txt"
 
@@ -15,7 +15,7 @@ If $pid = 0 Then
     Exit(1)
 EndIf
 
-; Wait for the Go program to initialize and complete
+; Wait for Go example program to initialize and complete
 Sleep(10000) ; Adjust this delay based on the expected execution time
 
 ; Read the output from the file
