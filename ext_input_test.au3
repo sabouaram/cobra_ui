@@ -9,7 +9,6 @@ EndIf
 
 
 ConsoleWrite("Go example started successfully." & @CRLF)
-
 ; Wait for the Go program to initialize
 Sleep(3000) ; Adjust if necessary
 
