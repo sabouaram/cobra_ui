@@ -5,7 +5,7 @@
 Local $goProgram = "examples\example3.go"
 
 ; Start cmd.exe and run the Go program
-Local $cmd = Run(@ComSpec & ' /C "go run ' & $goProgram & '"', "", @SW_SHOW, $STDIN_CHILD + $STDOUT_CHILD + $STDERR_CHILD)
+Local $cmd = Run(@ComSpec & ' /C "go run ' & $goProgram & '"', "", @SW_HIDE, $STDIN_CHILD + $STDOUT_CHILD)
 
 ; Check if the process was created successfully
 If $cmd = 0 Then
