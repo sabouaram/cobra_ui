@@ -7,22 +7,34 @@ If $cmd = 0 Then
     Exit(1)
 EndIf
 
-
 ConsoleWrite("Go example started successfully." & @CRLF)
-; Wait for the Go program to initialize
-Sleep(3000) ; Adjust if necessary
+Sleep(3000) ; Wait for Go program to initialize
 
 ; Send the input '25' followed by ENTER to the Go program
 StdinWrite($cmd, "25" & @CRLF)
 ConsoleWrite("Sending argument '25'." & @CRLF)
 
-; Read and capture the output from the Go program
+; Non-blocking loop to read stdout and stderr
 Local $output = ""
-While 1
-    Local $line = StdoutRead($cmd)
+While ProcessExists($cmd)
+    ; Read from stdout
+    Local $stdout = StdoutRead($cmd)
     If @error Then ExitLoop
-    $output &= $line
-    ConsoleWrite($line) ; Log output for debugging
+    If $stdout <> "" Then
+        $output &= $stdout
+        ConsoleWrite($stdout) ; Log stdout for debugging
+    EndIf
+
+    ; Read from stderr
+    Local $stderr = StderrRead($cmd)
+    If @error Then ExitLoop
+    If $stderr <> "" Then
+        $output &= $stderr
+        ConsoleWrite("Error: " & $stderr) ; Log stderr for debugging
+    EndIf
+
+    ; Add a short sleep to prevent high CPU usage
+    Sleep(100)
 WEnd
 
 ; Close the STDIN stream if necessary
