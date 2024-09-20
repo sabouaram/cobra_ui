@@ -3,8 +3,8 @@ import wexpect
 def run_test():
     
     child = wexpect.spawn('cmd.exe')
-    wexpect.sendline('cd  D:\\a\\cobra_ui\\cobra_ui')
-    wexpect.sendline('go run examples\\example3.go')
+    child.sendline('cd  D:\\a\\cobra_ui\\cobra_ui')
+    child.sendline('go run examples\\example3.go')
  
 
     # Wait for the prompt
