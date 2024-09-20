@@ -76,6 +76,7 @@ jobs:
         if: runner.os == 'Windows'
         shell: cmd
         run: |
+          cd
           python input_windows.py
           
       - name: Run Text Input example (Linux/macOS)
