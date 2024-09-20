@@ -80,8 +80,7 @@ jobs:
           set GOOS=windows&& set GOARCH=amd64&& go build -o example3.exe example3.go
           python input_windows.py
 
-          
-          
+                    
           
       - name: Run Text Input example (Linux/macOS)
         if: runner.os != 'Windows'
