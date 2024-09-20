@@ -6,6 +6,8 @@ def run_test():
 
     child.sendline('25')
 
+    child.expect('Enter your age: ')
+
     # Capture the output before the prompt
     output = child.before  
 
