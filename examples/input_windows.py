@@ -4,14 +4,11 @@ def run_test():
     
     child = wexpect.spawn('go run example3.go')
 
-    child.sendline('25')
-
     child.expect('Enter your age: ')
 
-    # Capture the output before the prompt
-    output = child.before  
+    child.sendline('25')
 
-    print(output)
+    child.expect('Your entered age is 25')
 
     child.close()
 
