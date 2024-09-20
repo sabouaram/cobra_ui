@@ -16,7 +16,7 @@ def run_test():
 
     # Wait for output
     try:
-        child.expect('Your entered age is 25', timeout=30)  # Adjust the timeout as necessary
+        child.expect('Your entered age is 25')
         print("Test passed.")
     except wexpect.EOF:
         print("EOF reached; command may not have produced expected output.")
