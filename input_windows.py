@@ -3,7 +3,7 @@ import wexpect
 
 def run_test():
 
-    child = wexpect.spawn('go run examples/example3.go')
+    child = wexpect.spawn('cd D:\\a\\cobra_ui\\cobra_ui\\examples && go run example3.go')
 
     # Wait for the prompt
     child.expect('Enter your age: ')
