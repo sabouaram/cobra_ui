@@ -29,5 +29,5 @@ func main() {
 		},
 	})
 	tui.RunInteractiveUI()
-	fmt.Printf("Your entered age is %d \n", age)
+	fmt.Printf("Your entered age is %d\n", age)
 }
