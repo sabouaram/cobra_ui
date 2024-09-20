@@ -2,7 +2,7 @@ import wexpect
 
 def run_test():
 
-    command = r'D:\\a\cobra_ui\cobra_ui\examples\example3\example3.exe'
+    command = r'D:\a\cobra_ui\cobra_ui\examples\example3.exe'
     
     child = wexpect.spawn(command)
 
