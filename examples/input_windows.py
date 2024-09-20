@@ -3,7 +3,7 @@ import wexpect
 def run_test():
     child = wexpect.spawn('go run example3.go')
   
-    child.logfile = sys.stdout  # Log output for debugging
+
   
     output = child.before  
 
