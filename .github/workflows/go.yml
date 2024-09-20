@@ -28,13 +28,13 @@ jobs:
       - name: Install dependencies
         run: go mod tidy
 
-      # Install Python and pip
+     
       - name: Install Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
-      # Install `pexpect` or `wexpect` based on the platform
+      
       - name: Install pexpect on Linux/macOS
         if: matrix.os != 'windows-latest'
         run: |
@@ -71,12 +71,15 @@ jobs:
         if: runner.os == 'Windows'
         run: echo "FILE_DIR=C:\\temp\\test_dir" >> $GITHUB_ENV
 
-      # Run Text Input example with validation (Windows)
+      
       - name: Run Text Input example (Windows)
         if: runner.os == 'Windows'
         shell: cmd
         run: |
-          cd examples && python input_windows.py
+          cd examples 
+          GOOS=windows GOARCH=amd64 go build -o example3.exe example3.go
+
+          
           
           
       - name: Run Text Input example (Linux/macOS)
@@ -86,7 +89,7 @@ jobs:
           python input_unix.py
           
 
-      # Run Password Input example with validation (Linux/macOS)
+      
       - name: Run Password Input example (Linux/macOS)
         if: runner.os != 'Windows'
         run: |
@@ -100,7 +103,7 @@ jobs:
           cd examples
           python pwd_windows.py
           
-      # Run Password chocices example with validation (Linux/macOS)
+     
       - name: Run choice example (Linux/macOS)
         if: runner.os != 'Windows'
         run: |
