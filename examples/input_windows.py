@@ -10,6 +10,8 @@ def run_test():
     # Run the Go program
     child.sendline('go run example3.go')
 
+    child.sendline('25')
+
     # Wait for the command prompt to confirm the program has finished
     child.expect('>')  
 
