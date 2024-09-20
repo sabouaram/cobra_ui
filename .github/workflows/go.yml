@@ -76,8 +76,8 @@ jobs:
         if: runner.os == 'Windows'
         shell: cmd
         run: |
-          cd examples
-          python input_windows.py
+          cd examples && python input_windows.py
+          
           
       - name: Run Text Input example (Linux/macOS)
         if: runner.os != 'Windows'
