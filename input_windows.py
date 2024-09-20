@@ -14,7 +14,7 @@ def run_test():
     # Run the batch file
     child.sendline('25')
 
-    child.send('\n')
+   
 
     # Wait for output
     try:
