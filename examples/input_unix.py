@@ -2,7 +2,7 @@ import pexpect
 
 def run_test():
   
-    child = pexpect.spawn('go run examples/example3.go')
+    child = pexpect.spawn('go run example3.go')
 
     # Wait for the prompt
     child.expect('Enter your age: ')
