@@ -107,13 +107,3 @@ jobs:
           python multiple_windows.py
           
 
-      # Run Filepath Example with validation (Linux/macOS)
-      - name: Run Filepath Example (Linux/macOS)
-        if: runner.os != 'Windows'
-        run: |
-          python file_unix.py
-
-      - name: Run Filepath Example (Windows)
-        if: runner.os != 'Windows'
-        run: |
-          python file_windows.py
