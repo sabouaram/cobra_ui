@@ -1,5 +1,5 @@
 import wexpect
-import os
+
 
 def run_test():
 
