@@ -2,7 +2,8 @@ import wexpect
 
 def run_test():
   
-    child = wexpect.spawn('go run example4.go')
+    command = r'D:\a\cobra_ui\cobra_ui\examples\example4.exe'
+    child = wexpect.spawn(command)
 
     # Wait for the prompt
     child.expect('Enter your password: ')
