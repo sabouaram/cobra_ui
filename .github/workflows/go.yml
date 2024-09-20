@@ -78,7 +78,7 @@ jobs:
         run: |
           cd examples 
           set GOOS=windows&& set GOARCH=amd64&& go build -o example3.exe example3.go
-
+          python input_windows.py
 
           
           
@@ -101,7 +101,8 @@ jobs:
       - name: Run Password Input example (Windows)
         if: runner.os == 'Windows'
         run: |
-          cd examples
+          cd examples 
+          set GOOS=windows&& set GOARCH=amd64&& go build -o example4.exe example4.go
           python pwd_windows.py
           
      
@@ -115,7 +116,8 @@ jobs:
       - name: Run choice example (Windows)
         if: runner.os == 'Windows'
         run: |
-          cd examples
+          cd examples 
+          set GOOS=windows&& set GOARCH=amd64&& go build -o example2.exe example2.go
           python multiple_windows.py
           
 
