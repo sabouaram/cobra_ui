@@ -7,11 +7,11 @@ def run_test():
     # Wait for the prompt
     child.expect('Select a file:')
 
-    child.send('C:\\temp\\test_dir\\file1.txt')  
+    child.send('C:\temp\test_dir\file1.txt')  
     child.send('\r')      # Enter key
 
    
-    child.expect('Selected file full path: file1.txt')
+    child.expect('Selected file full path: C:\temp\test_dir\file1.txt')
   
     child.close()
 
