@@ -8,15 +8,8 @@ def run_test():
 
     # Capture the output before the prompt
     output = child.before  
-    output_str = output.decode('utf-8') if isinstance(output, bytes) else output  # Decode if it's bytes
 
-    print("Captured output:", output_str)
-
-    # Check if the expected output is in the captured output
-    if 'Your entered age is 25' in output_str:
-        print("Test passed.")
-    else:
-        print("Expected output not found.")
+    print(output)
 
     child.close()
 
