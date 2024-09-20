@@ -8,7 +8,7 @@ def run_test():
 
     child.expect('Enter your age: ')
 
-    child.sendline('25')
+    child.send('25\n\r')
 
     child.expect('Your entered age is 25')
 
