@@ -22,5 +22,5 @@ func main() {
 		},
 	})
 	ui.RunInteractiveUI()
-	fmt.Printf("Selected file full path: %s\n", selectedFile)
+	fmt.Printf("done")
 }
