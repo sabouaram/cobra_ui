@@ -2,18 +2,9 @@ import wexpect
 
 def run_test():
     
-    child = wexpect.spawn('cmd.exe')
-
-    child.sendline('cd D:\\a\\cobra_ui\\cobra_ui\\examples')
-    child.expect('>')  # Wait for the command prompt
-
-    # Run the Go program
-    child.sendline('go run example3.go')
+    child = wexpect.spawn('go run example3.go')
 
     child.sendline('25')
-
-    # Wait for the command prompt to confirm the program has finished
-    child.expect('>')  
 
     # Capture the output before the prompt
     output = child.before  
