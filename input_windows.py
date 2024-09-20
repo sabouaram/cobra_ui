@@ -2,7 +2,7 @@ import wexpect
 
 
 def run_test():
-    command = r'cmd.exe /C "cd D:\a\cobra_ui\cobra_ui\examples && go run example3.go"'
+    command = r'cmd.exe /C "go run D:\a\cobra_ui\cobra_ui\examples\example3.go"'
     
     # Spawn the command
     child = wexpect.spawn(command)
