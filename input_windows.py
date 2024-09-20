@@ -14,7 +14,9 @@ def run_test():
     # Run the batch file
     child.sendline('25')
 
-   
+   output = child.before.decode()
+   print("Captured output:", output)
+
 
     # Wait for output
     try:
