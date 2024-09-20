@@ -7,8 +7,7 @@ def run_test():
     # Wait for the prompt
     child.expect('Enter your age: ')
 
-    child.send('25')  
-    child.send('\r')      # Enter key
+    child.sendline('25')      # Enter key
 
    
     child.expect('Your entered age is 25')
