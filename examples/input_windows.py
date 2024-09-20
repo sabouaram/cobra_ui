@@ -8,9 +8,15 @@ def run_test():
 
     child.expect('Enter your age: ')
 
+    print(child.before)
+
     child.send('25\n\r')
 
+    print(child.before)
+
     child.expect('Your entered age is 25')
+
+    print(child.before)
 
     child.close()
 
