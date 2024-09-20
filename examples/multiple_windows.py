@@ -2,8 +2,8 @@ import wexpect
 
 def run_test():
   
-    child = wexpect.spawn('go run example2.go')
-
+    command = r'D:\a\cobra_ui\cobra_ui\examples\example2.exe'
+    child = wexpect.spawn(command)
     # Wait for the prompt
     child.expect(pexpect.TIMEOUT, timeout=10)
 
