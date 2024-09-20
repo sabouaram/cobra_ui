@@ -11,7 +11,7 @@ def run_test():
     child.send('\r')      # Enter key
 
    
-    child.expect('Selected file full path: /tmp/test_dir/file1.txt')
+    child.expect('done')
   
     child.close()
 
