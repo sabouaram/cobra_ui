@@ -1,36 +1,31 @@
 import wexpect
 
 def run_test():
-    child = wexpect.spawn('go run example3.go')
-  
-    child.logfile = sys.stdout  # Log output for debugging
-  
-    output = child.before  
-
-    print("Captured output:", output)
-
-
-    # Wait for the prompt
-    child.expect('Enter your age: ')
-    output = child.before
-    print("Captured output:", output)
     
-    # Run the input
-    child.sendline('25')
+    child = wexpect.spawn('cmd.exe')
 
+    child.sendline('cd D:\\a\\cobra_ui\\cobra_ui\\examples')
+    child.expect('>')  # Wait for the command prompt
 
-    try:
-        child.expect('Your entered age is 25', timeout=60)  # Adjust timeout
+    # Run the Go program
+    child.sendline('go run example3.go')
+
+    # Wait for the command prompt to confirm the program has finished
+    child.expect('>')  
+
+    # Capture the output before the prompt
+    output = child.before  
+    output_str = output.decode('utf-8') if isinstance(output, bytes) else output  # Decode if it's bytes
+
+    print("Captured output:", output_str)
+
+    # Check if the expected output is in the captured output
+    if 'Your entered age is 25' in output_str:
         print("Test passed.")
-    except wexpect.EOF:
-        print("EOF reached; command may not have produced expected output.")
-    except wexpect.TIMEOUT:
-        print("Timeout waiting for expected output.")
-        output = child.before.decode()  # Capture output before timeout
-        print("Captured output before timeout:", output)
+    else:
+        print("Expected output not found.")
 
     child.close()
 
 if __name__ == "__main__":
     run_test()
-
