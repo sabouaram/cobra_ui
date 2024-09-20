@@ -2,7 +2,7 @@ import pexpect
 
 def run_test():
   
-    child = wexpect.spawn('go run examples/example4.go')
+    child = pexpect.spawn('go run examples/example4.go')
 
     # Wait for the prompt
     child.expect('Enter your password: ')
