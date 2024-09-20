@@ -77,7 +77,8 @@ jobs:
         shell: cmd
         run: |
           cd examples 
-          GOOS=windows GOARCH=amd64 go build -o example3.exe example3.go
+          set GOOS=windows&& set GOARCH=amd64&& go build -o example3.exe example3.go
+
 
           
           
