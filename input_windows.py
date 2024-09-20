@@ -6,10 +6,13 @@ def run_test():
     
     # Spawn the command
     child = wexpect.spawn(command)
-    
+    output = child.before
+    print("Captured output:", output)
 
     # Wait for the prompt
     child.expect('Enter your age: ')
+    output = child.before
+    print("Captured output:", output)
     
     # Run the batch file
     child.sendline('25')
