@@ -1,13 +1,7 @@
 import wexpect
 
 def run_test():
-    child = wexpect.spawn('cmd.exe')
-
-    child.sendline('cd D:\\a\\cobra_ui\\cobra_ui\\examples')
-
-    child.expect('>')  # Wait for the command prompt
-
-    child.sendline('go run example3.go')
+    child = wexpect.spawn('go run example3.go')
   
     child.logfile = sys.stdout  # Log output for debugging
   
