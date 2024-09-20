@@ -2,8 +2,11 @@ import wexpect
 
 
 def run_test():
-
-    child = wexpect.spawn('cd D:\\a\\cobra_ui\\cobra_ui\\examples && go run example3.go')
+    command = r'cmd.exe /C "cd D:\a\cobra_ui\cobra_ui\examples && go run example3.go"'
+    
+    # Spawn the command
+    child = wexpect.spawn(command)
+    
 
     # Wait for the prompt
     child.expect('Enter your age: ')
