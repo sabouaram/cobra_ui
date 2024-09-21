@@ -58,7 +58,7 @@ func main() {
 
 
 
-**Choices Question  Example**
+## **Choices Question  Example**
 
 
 ```go
@@ -98,7 +98,7 @@ func main() {
 
 
 
-**Text Input Example**
+## **Text Input Example**
 
 
 ```go
@@ -143,7 +143,7 @@ func main() {
 ![Input](png/input.gif)
 
 
-**Password Input Example**
+## **Password Input Example**
 
 ```go
 package main
@@ -185,7 +185,7 @@ func main() {
 ![Password](png/password.gif)
 
 
-**UI with Cobra Example**
+## **UI with Cobra Example**
 
 
 
