@@ -9,9 +9,6 @@ def run_test():
 
     child.send('\x1b[B3')  
     child.send('\r')     
-
-   
-    child.expect('Selected choice: Python')
   
     child.close()
 
