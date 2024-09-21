@@ -19,6 +19,12 @@ The cobra-ui package empowers developers to craft immersive and interactive user
 - Each question can have separately its own string cursor, question text color and its own handler (the default cursor if not specified is ->)
 
 
+## Support
+
+If you enjoy my work and want to support me, consider buying me a coffee! ☕️  
+[Buy Me a Coffee](https://buymeacoffee.com/sabouaram)  
+
+
       
 ## **FilePath Example**
 
