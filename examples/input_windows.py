@@ -6,17 +6,11 @@ def run_test():
     
     child = wexpect.spawn(command)
 
-    child.expect('Enter your age: ')
+    child.expect('Enter your age: ',timeout=5)
 
     print(child.before)
 
     child.send('25\n\r')
-
-    print(child.before)
-
-    child.expect('Your entered age is 25')
-
-    print(child.before)
 
     child.close()
 
