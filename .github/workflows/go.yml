@@ -78,7 +78,15 @@ jobs:
         run: |
           cd examples 
           set GOOS=windows&& set GOARCH=amd64&& go build -o example3.exe example3.go
-          python input_windows.py
+          python input_windows.py > output.log
+          findstr "Your entered age is 25" output.log >nul
+          if %errorlevel% equ 0 (
+              echo String found.
+          ) else (
+              echo String not found.
+              exit /b 1  
+          )                    
+          
 
                     
           
@@ -101,9 +109,16 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           cd examples 
-          set GOOS=windows&& set GOARCH=amd64&& go build -o example4.exe example4.go
-          python pwd_windows.py
-          
+          set GOOS=windows && set GOARCH=amd64 && go build -o example4.exe example4.go
+          python pwd_windows.py > output.log
+          findstr "Password entered => 123456" output.log >nul
+          if %errorlevel% equ 0 (
+              echo String found.
+          ) else (
+              echo String not found.
+              exit /b 1  
+          )          
+              
      
       - name: Run choice example (Linux/macOS)
         if: runner.os != 'Windows'
@@ -117,6 +132,14 @@ jobs:
         run: |
           cd examples 
           set GOOS=windows&& set GOARCH=amd64&& go build -o example2.exe example2.go
-          python multiple_windows.py
+          python multiple_windows.py > output.log
+          findstr "Selected choice: Python" output.log >nul
+          if %errorlevel% equ 0 (
+              echo String found.
+          ) else (
+              echo String not found.
+              exit /b 1  
+          )                    
+                    
           
 
