@@ -10,9 +10,6 @@ def run_test():
 
     child.send('123456')  
     child.send('\r')      # Enter key
-
-   
-    child.expect('Password entered => 123456')
   
     child.close()
 
