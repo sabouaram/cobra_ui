@@ -30,7 +30,6 @@ import tea "github.com/charmbracelet/bubbletea"
 func (u *ui) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	if u.index >= len(u.questions) {
-
 		return u, tea.Quit
 	}
 
@@ -43,28 +42,27 @@ func (u *ui) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msgType.Type {
 
 		case tea.KeyCtrlC:
-
 			return u, tea.Quit
+			
 		case tea.KeyEnter:
-
 			return u.handleEnter()
+			
 		case tea.KeyDown:
-
 			return u.handleDown()
+			
 		case tea.KeyUp:
-
 			return u.handleUp()
+			
 		case tea.KeyRight:
-
 			return u.handleRight()
+			
 		case tea.KeyLeft:
-
 			return u.handleLeft()
+			
 		case tea.KeyTab, tea.KeySpace, tea.KeyBackspace:
-
 			return u.handleTabSpaceBackspace()
+			
 		default:
-
 			return u.handleDefaultKey(msgType)
 		}
 	}
@@ -77,15 +75,12 @@ func (u *ui) handleEnter() (tea.Model, tea.Cmd) {
 	if u.index < len(u.questions) {
 
 		if u.questions[u.index].FilePath && u.input != "" {
-
 			return u.handleFilePathEnter()
 
 		} else if len(u.questions[u.index].Options) > 0 {
-
 			return u.handleOptionsEnter()
 
 		} else {
-
 			return u.handleInputEnter()
 		}
 	}
@@ -133,7 +128,6 @@ func (u *ui) handleOptionsEnter() (tea.Model, tea.Cmd) {
 	err := u.questions[u.index].Handler(u.questions[u.index].Options[u.cursor])
 
 	if err != nil {
-
 		u.errorMsg = err.Error()
 		u.input = ""
 		u.cursor = 0
@@ -147,7 +141,6 @@ func (u *ui) handleOptionsEnter() (tea.Model, tea.Cmd) {
 	u.cursor = 0
 
 	if u.index >= len(u.questions) {
-
 		return u, tea.Quit
 	}
 
@@ -159,7 +152,6 @@ func (u *ui) handleInputEnter() (tea.Model, tea.Cmd) {
 	err := u.questions[u.index].Handler(u.input)
 
 	if err != nil {
-
 		u.errorMsg = err.Error()
 		u.input = ""
 		u.cursor = 0
@@ -173,7 +165,6 @@ func (u *ui) handleInputEnter() (tea.Model, tea.Cmd) {
 	u.cursor = 0
 
 	if u.index >= len(u.questions) {
-
 		return u, tea.Quit
 	}
 
@@ -185,13 +176,12 @@ func (u *ui) handleDown() (tea.Model, tea.Cmd) {
 	if u.questions[u.index].FilePath && len(u.filesList) > 0 {
 
 		if u.cursor < len(u.filesList)-1 {
-
 			u.cursor++
 		}
+		
 	} else if len(u.questions[u.index].Options) > 0 {
 
 		if u.cursor < len(u.questions[u.index].Options)-1 {
-
 			u.cursor++
 		}
 	}
@@ -202,7 +192,6 @@ func (u *ui) handleDown() (tea.Model, tea.Cmd) {
 func (u *ui) handleUp() (tea.Model, tea.Cmd) {
 
 	if u.cursor > 0 {
-
 		u.cursor--
 	}
 
@@ -212,10 +201,9 @@ func (u *ui) handleUp() (tea.Model, tea.Cmd) {
 func (u *ui) handleRight() (tea.Model, tea.Cmd) {
 
 	if u.questions[u.index].FilePath {
-
 		u.handleFilePathRight()
+		
 	} else if len(u.questions[u.index].Options) > 0 {
-
 		u.handleOptionsRight()
 	}
 
@@ -234,7 +222,6 @@ func (u *ui) handleLeft() (tea.Model, tea.Cmd) {
 func (u *ui) handleTabSpaceBackspace() (tea.Model, tea.Cmd) {
 
 	if len(u.input) > 0 {
-
 		u.input = u.input[:len(u.input)-1]
 	}
 
@@ -242,7 +229,6 @@ func (u *ui) handleTabSpaceBackspace() (tea.Model, tea.Cmd) {
 }
 
 func (u *ui) handleDefaultKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
-
 	u.input += msg.String()
 
 	return u, nil
@@ -253,10 +239,8 @@ func (u *ui) handleFilePathRight() {
 	nextPage := u.cursor + pageSize
 
 	if nextPage >= len(u.filesList) {
-
 		u.cursor = 0
 	} else {
-
 		u.cursor = nextPage
 	}
 }
@@ -266,10 +250,8 @@ func (u *ui) handleOptionsRight() {
 	nextPage := (u.cursor/pageSize + 1) * pageSize
 
 	if nextPage < len(u.questions[u.index].Options) {
-
 		u.cursor = nextPage
 	} else {
-
 		u.cursor = len(u.questions[u.index].Options) - 1
 	}
 }
