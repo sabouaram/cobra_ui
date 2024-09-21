@@ -1,3 +1,4 @@
+// License: MIT
 module github.com/sabouaram/cobra_ui
 
 go 1.22.3
