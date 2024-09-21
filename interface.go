@@ -51,6 +51,5 @@ type UI interface {
 }
 
 func New() UI {
-
 	return &ui{}
 }
