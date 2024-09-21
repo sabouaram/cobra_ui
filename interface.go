@@ -82,12 +82,35 @@ type Question struct {
 // - BeforeRun: Called before Cobra's Run phase, enabling setup or preparation tasks before 
 //   the Cobra command is executed.
 type UI interface {
+
+	// SetQuestions sets the list of questions to be presented during the UI interaction.
+	// Parameters:
+	// - questions: A slice of Question structs representing the questions to display.
 	SetQuestions(questions []Question)
+	
+	// RunInteractiveUI starts the interactive UI by running a Bubble Tea program.
+	// It initializes the index and cursor, then starts the UI loop.
 	RunInteractiveUI()
+	
+	// SetCobra links a Cobra command with the UI.
+	// Parameters:
+	// - cobra: The Cobra command instance to link with the UI.
 	SetCobra(cobra *cobra.Command)
+
+	// AfterPreRun sets the PreRun hook for Cobra to execute the interactive UI after the PreRun logic.
+	// If PreRun is already defined, it ensures the original logic is preserved.
 	AfterPreRun()
+
+	// BeforePreRun sets the PreRun hook for Cobra to execute the interactive UI before the PreRun logic.
+	// If PreRun is already defined, it ensures the UI is executed first and the original logic is preserved.
 	BeforePreRun()
+
+	// AfterRun sets the Run hook for Cobra to execute the interactive UI after the command's main logic.
+	// If Run is already defined, it ensures the original logic is preserved and the UI is run afterward.
 	AfterRun()
+
+	// BeforeRun sets the Run hook for Cobra to execute the interactive UI before the command's main logic.
+	// If Run is already defined, it ensures the UI is executed first and preserves the original logic.
 	BeforeRun()
 }
 	
