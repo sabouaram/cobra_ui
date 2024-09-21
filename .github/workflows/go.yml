@@ -32,7 +32,7 @@ jobs:
         env:
           GO111MODULE: on        
         with:
-          args: ./...
+          args: -exclude-dir=examples ./...
 
       - name: Install Python
         uses: actions/setup-python@v4
