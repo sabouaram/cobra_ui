@@ -27,41 +27,34 @@ jobs:
       - name: Install dependencies
         run: go mod tidy
 
-     
       - name: Install Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
-      
       - name: Install pexpect
         run: |
           python -m pip install pexpect
-
 
       - name: Create test directory 
         run: |
           mkdir -p /tmp/test_dir
           echo "file1.txt" > /tmp/test_dir/file1.txt
           echo "file2.txt" > /tmp/test_dir/file2.txt
-          
-          
+                    
       - name: Set environment variable for file path
         run: echo "FILE_DIR=/tmp/test_dir" >> $GITHUB_ENV
-      
-                            
+                                 
       - name: Run Text Input example 
         run: |
           cd examples
           python input.py
-          
-      
+                
       - name: Run Password Input example 
         run: |
           cd examples
           python pwd.py
-          
-     
+               
       - name: Run choice example 
         run: |
           cd examples
