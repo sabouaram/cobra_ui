@@ -48,8 +48,8 @@ import tea "github.com/charmbracelet/bubbletea"
 // Behavior:
 //   - tea.KeyCtrlC: Quits the interactive UI.
 //   - tea.KeyEnter: Handles "Enter" key to process the current question.
-//   - tea.KeyDown: Moves to the next option in the UI.
-//   - tea.KeyUp: Moves to the previous option in the UI.
+//   - tea.KeyDown: Handles "Up Arrow" key input.
+//   - tea.KeyUp: Handles "Down Arrow" key input.
 //   - tea.KeyRight: Handles "Right Arrow" key input.
 //   - tea.KeyLeft: Handles "Left Arrow" key input.
 //   - tea.KeyTab, tea.KeySpace, tea.KeyBackspace: Handles additional key
