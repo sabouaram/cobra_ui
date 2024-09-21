@@ -32,6 +32,11 @@ import (
 	"github.com/fatih/color"
 )
 
+
+// View renders the current state of the UI as a string.
+// This method is part of the internal Bubble Tea framework lifecycle and
+// is called automatically to display the UI. It should not be called
+// directly by end users. 
 func (u *ui) View() string {
 
 	if u.index >= len(u.questions) {
