@@ -30,6 +30,25 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Question represents an interactive question that can be asked in the UI.
+// It supports various input types like text, file selection, password entry, 
+// and single-choice options.
+//
+// Fields:
+// - Text: The question to be displayed to the user.
+// - Options: A list of available options for single-choice questions. If empty, 
+//   the user is expected to provide a text input.
+// - FilePath: If true, the question prompts the user to select a file from a directory 
+//   (with built-in pagination support).
+// - PasswordType: If true, the input will be hidden for security, typically used 
+//   for password entries.
+// - Handler: A callback function that handles the user's input. It receives the 
+//   input string and returns an error if the input is invalid or if there's an issue
+//   processing the input.
+// - Color: Defines the text color of the question. Uses `color.Attribute` from the 
+//   `github.com/fatih/color` package.
+// - CursorStr: The string used as a cursor or pointer in the UI when navigating 
+//   through options. If not specified, the default cursor (`->`) is used.
 type Question struct {
 	Text         string
 	Options      []string
@@ -40,6 +59,28 @@ type Question struct {
 	CursorStr    string
 }
 
+// UI defines the methods required to handle an interactive user interface (UI) 
+// for terminal applications. It provides functionalities for setting up questions, 
+// running the UI, and integrating with Cobra CLI commands.
+//
+// Methods:
+// - SetQuestions: Allows setting a list of questions to be presented to the user. 
+//   Each question can prompt the user for different types of inputs, such as file selection, 
+//   text input, or multiple-choice options.
+// - RunInteractiveUI: Starts the interactive UI session, displaying the configured 
+//   questions to the user and collecting their responses.
+// - SetCobra: Integrates the UI with a Cobra CLI command. This method links the 
+//   interactive UI with a Cobra command, enabling the UI to run within the Cobra CLI's 
+//   lifecycle.
+// - AfterPreRun: This method is called after Cobra's PreRun phase, allowing for any 
+//   additional setup or initialization that should occur after the PreRun function of a 
+//   Cobra command.
+// - BeforePreRun: This method is called before Cobra's PreRun phase, allowing the UI 
+//   to perform setup tasks or make adjustments before the Cobra command's PreRun is executed.
+// - AfterRun: Called after Cobra's Run phase, providing an opportunity for any post-execution 
+//   steps or cleanup.
+// - BeforeRun: Called before Cobra's Run phase, enabling setup or preparation tasks before 
+//   the Cobra command is executed.
 type UI interface {
 	SetQuestions(questions []Question)
 	RunInteractiveUI()
@@ -49,7 +90,31 @@ type UI interface {
 	AfterRun()
 	BeforeRun()
 }
-
+	
+// New creates a new instance of the UI interface. It returns a concrete 
+// implementation of the UI, which can be used to set up and run an interactive 
+// user interface in terminal applications.
+//
+// The returned UI allows developers to configure questions, run the UI, and 
+// integrate it with Cobra commands.
+//
+// Example usage:
+//
+//  ui := cobra_ui.New()
+//  ui.SetQuestions([]cobra_ui.Question{
+//      {
+//          Text: "What is your preferred programming language?",
+//          Options: []string{"Go", "Python", "JavaScript", "Java"},
+//          Handler: func(input string) error {
+//              fmt.Printf("Selected language: %s\n", input)
+//              return nil
+//          },
+//      },
+//  })
+//  ui.RunInteractiveUI()
+//
+// Returns:
+// - UI: A new instance of the UI interface, which can be configured and run.
 func New() UI {
 	return &ui{}
 }
