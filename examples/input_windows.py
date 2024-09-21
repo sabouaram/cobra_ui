@@ -14,7 +14,12 @@ def run_test():
     child.send('25\n\r')
 
     child.expect('')
-    print(child.before)
+
+    with open('D:\\a\\cobra_ui\\cobra_ui\\examples\\output.log', 'w') as log_file:
+        # Write the captured output to the file
+        log_file.write(child.before)
+    
+    
 
     child.close()
 
