@@ -49,31 +49,25 @@ type ui struct {
 }
 
 func (u *ui) SetCobra(cobra *spfcbr.Command) {
-
 	u.cobra = cobra
 }
 
 func (u *ui) Init() tea.Cmd {
-
 	return nil
 }
 
 func (u *ui) SetQuestions(questions []Question) {
-
 	u.questions = questions
 }
 
 func (u *ui) RunInteractiveUI() {
-
 	u.index = 0
 	u.cursor = 0
 
 	p := tea.NewProgram(u)
 
 	if _, err := p.Run(); err != nil {
-
 		log.Println("Error:", err)
-
 		os.Exit(1)
 	}
 }
@@ -81,26 +75,20 @@ func (u *ui) RunInteractiveUI() {
 func (u *ui) AfterPreRun() {
 
 	if u.cobra == nil {
-
 		log.Println("Cobra instance is not set")
 	}
 
 	existingPreRun := u.cobra.PreRun
 
 	if existingPreRun != nil {
-
 		u.cobra.PreRun = func(cmd *spfcbr.Command, args []string) {
-
-			existingPreRun(cmd, args)
-
-			u.RunInteractiveUI()
+		existingPreRun(cmd, args)
+		u.RunInteractiveUI()
 		}
 
 	} else {
-
 		u.cobra.PreRun = func(cmd *spfcbr.Command, args []string) {
-
-			u.RunInteractiveUI()
+		u.RunInteractiveUI()
 		}
 	}
 }
@@ -108,26 +96,20 @@ func (u *ui) AfterPreRun() {
 func (u *ui) BeforePreRun() {
 
 	if u.cobra == nil {
-
 		log.Println("Cobra instance is not set")
 	}
 
 	existingPreRun := u.cobra.PreRun
 
 	if existingPreRun != nil {
-
 		u.cobra.PreRun = func(cmd *spfcbr.Command, args []string) {
-
-			u.RunInteractiveUI()
-
-			existingPreRun(cmd, args)
+		u.RunInteractiveUI()
+		existingPreRun(cmd, args)
 		}
 
 	} else {
-
 		u.cobra.PreRun = func(cmd *spfcbr.Command, args []string) {
-
-			u.RunInteractiveUI()
+		u.RunInteractiveUI()
 		}
 	}
 }
@@ -135,25 +117,20 @@ func (u *ui) BeforePreRun() {
 func (u *ui) BeforeRun() {
 
 	if u.cobra == nil {
-
 		log.Println("Cobra instance is not set")
 	}
 
 	existingRun := u.cobra.Run
 
 	if existingRun != nil {
-
 		u.cobra.Run = func(cmd *spfcbr.Command, args []string) {
-
-			u.RunInteractiveUI()
-
-			existingRun(cmd, args)
+		u.RunInteractiveUI()
+		existingRun(cmd, args)
 		}
+		
 	} else {
-
 		u.cobra.Run = func(cmd *spfcbr.Command, args []string) {
-
-			u.RunInteractiveUI()
+		u.RunInteractiveUI()
 		}
 	}
 }
@@ -161,25 +138,20 @@ func (u *ui) BeforeRun() {
 func (u *ui) AfterRun() {
 
 	if u.cobra == nil {
-
 		log.Println("Cobra instance is not set")
 	}
 
 	existingRun := u.cobra.Run
 
 	if existingRun != nil {
-
 		u.cobra.Run = func(cmd *spfcbr.Command, args []string) {
-
-			existingRun(cmd, args)
-
-			u.RunInteractiveUI()
+		existingRun(cmd, args)
+		u.RunInteractiveUI()
 		}
+		
 	} else {
-
 		u.cobra.Run = func(cmd *spfcbr.Command, args []string) {
-
-			u.RunInteractiveUI()
+		u.RunInteractiveUI()
 
 		}
 	}
@@ -192,11 +164,9 @@ func (u *ui) questionFilePath() {
 	fullPath := ""
 
 	if u.input == "." {
-
 		fullPath, _ = filepath.Abs(u.input)
 
 	} else {
-
 		fullPath = u.input
 	}
 
@@ -209,13 +179,11 @@ func (u *ui) questionFilePath() {
 			fileInfo, _ := os.Stat(file)
 
 			if fileInfo != nil && !fileInfo.IsDir() {
-
 				u.filesList = append(u.filesList, file)
 			}
 		}
 
 	} else {
-
 		u.errorMsg = "Directory does not exist"
 	}
 }
