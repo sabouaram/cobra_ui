@@ -27,6 +27,36 @@ package cobra_ui
 
 import tea "github.com/charmbracelet/bubbletea"
 
+
+// Note: This function is intended for internal use by the Bubble Tea framework
+// and should not be called directly by the end user.
+// Update is the internal update function required by the Bubble Tea framework.
+// Update is the main update function for the UI, called on every input event.
+// It processes the input based on the current question index and the user's
+// keypresses. The method handles various key events like Enter, Arrow keys, and 
+// special keys like Ctrl+C to quit the program.
+//
+// If all questions have been answered (i.e., u.index >= len(u.questions)), 
+// it quits the interactive UI.
+//
+// Params:
+//   msg tea.Msg: The message containing user input (typically key presses).
+//
+// Returns:
+//   (tea.Model, tea.Cmd): The updated model (ui) and command to be executed.
+//
+// Behavior:
+//   - tea.KeyCtrlC: Quits the interactive UI.
+//   - tea.KeyEnter: Handles "Enter" key to process the current question.
+//   - tea.KeyDown: Moves to the next option in the UI.
+//   - tea.KeyUp: Moves to the previous option in the UI.
+//   - tea.KeyRight: Handles "Right Arrow" key input.
+//   - tea.KeyLeft: Handles "Left Arrow" key input.
+//   - tea.KeyTab, tea.KeySpace, tea.KeyBackspace: Handles additional key
+//     inputs for Tab, Space, and Backspace keys.
+//   - default: Passes other keys to the handleDefaultKey function for further 
+//     handling.
+
 func (u *ui) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	if u.index >= len(u.questions) {
