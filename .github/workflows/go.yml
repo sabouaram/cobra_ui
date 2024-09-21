@@ -110,6 +110,7 @@ jobs:
           cd examples 
           set GOOS=windows && set GOARCH=amd64 && go build -o example4.exe example4.go
           python pwd_windows.py 
+          cat output.log
           findstr "Password entered => 123456" output.log >nul
           if %errorlevel% equ 0 (
               echo String found.
