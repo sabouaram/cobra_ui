@@ -35,9 +35,7 @@ import (
 func (u *ui) View() string {
 
 	if u.index >= len(u.questions) {
-
 		return ""
-
 	}
 
 	question := u.questions[u.index]
@@ -45,9 +43,7 @@ func (u *ui) View() string {
 	view := question.Text
 
 	if question.Color != 0 {
-
 		colorFunc := color.New(question.Color).SprintFunc()
-
 		view = colorFunc(view)
 	}
 
@@ -56,19 +52,15 @@ func (u *ui) View() string {
 		view += u.input + "\n"
 
 		if u.errorMsg != "" {
-
-			view += "Error: " + u.errorMsg + "\n"
-
+		view += "Error: " + u.errorMsg + "\n"
 		}
 
 		u.appendFilePathView(&view)
 
 	} else if len(question.Options) > 0 {
-
 		u.appendOptionsView(&view)
 
 	} else {
-
 		u.appendInputView(&view, question)
 	}
 
@@ -92,18 +84,13 @@ func (u *ui) appendFilePathView(view *string) {
 		end := start + pageSize
 
 		if end > len(u.filesList) {
-
 			end = len(u.filesList)
 		}
 
 		if start >= len(u.filesList) {
-
 			u.cursor = 0
-
 			currentPage = 1
-
 			start = 0
-
 			end = pageSize
 		}
 
@@ -114,11 +101,9 @@ func (u *ui) appendFilePathView(view *string) {
 			if i == u.cursor {
 
 				if u.questions[u.index].CursorStr != "" {
-
 					cursor = u.questions[u.index].CursorStr
 
 				} else {
-
 					cursor = "→"
 				}
 			}
@@ -129,9 +114,7 @@ func (u *ui) appendFilePathView(view *string) {
 		*view += fmt.Sprintf("\nPage %d/%d\n", currentPage, totalPages)
 
 	} else {
-
 		*view += "No files in folder\n"
-
 		u.cursor = 0
 	}
 }
@@ -151,18 +134,13 @@ func (u *ui) appendOptionsView(view *string) {
 	end := start + pageSize
 
 	if end > totalOptions {
-
 		end = totalOptions
 	}
 
 	if start >= totalOptions {
-
 		u.cursor = 0
-
 		currentPage = 1
-
 		start = 0
-
 		end = pageSize
 	}
 
@@ -173,11 +151,9 @@ func (u *ui) appendOptionsView(view *string) {
 		if i == u.cursor {
 
 			if u.questions[u.index].CursorStr != "" {
-
 				cursor = u.questions[u.index].CursorStr
 
 			} else {
-
 				cursor = "→"
 			}
 		}
@@ -193,21 +169,17 @@ func (u *ui) appendInputView(view *string, question Question) {
 	if len(u.input) > 0 {
 
 		if question.PasswordType {
-
 			*view += strings.Repeat("*", len(u.input)) + "\n"
 
 		} else {
-
 			*view += u.input + "\n"
 		}
 
 	} else {
-
 		*view += "\n"
 	}
 
 	if u.errorMsg != "" {
-
 		*view += "\nError: " + u.errorMsg + "\n"
 
 	}
