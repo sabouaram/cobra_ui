@@ -78,6 +78,7 @@ jobs:
           cd examples 
           set GOOS=windows&& set GOARCH=amd64&& go build -o example3.exe example3.go
           python input_windows.py 
+          type output.log
           findstr "Your entered age is 25" output.log >nul
           if %errorlevel% equ 0 (
               echo String found.
@@ -110,7 +111,6 @@ jobs:
           cd examples 
           set GOOS=windows && set GOARCH=amd64 && go build -o example4.exe example4.go
           python pwd_windows.py 
-          cat output.log
           findstr "Password entered => 123456" output.log >nul
           if %errorlevel% equ 0 (
               echo String found.
