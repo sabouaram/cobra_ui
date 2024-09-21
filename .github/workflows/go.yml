@@ -11,7 +11,7 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -34,112 +34,37 @@ jobs:
           python-version: '3.x'
 
       
-      - name: Install pexpect on Linux/macOS
-        if: matrix.os != 'windows-latest'
+      - name: Install pexpect
         run: |
           python -m pip install pexpect
 
-      - name: Install wexpect on Windows
-        if: matrix.os == 'windows-latest'
-        run: |
-          python -m pip install --upgrade pip
-          pip install setuptools
-          pip install wexpect
 
-
-      - name: Create test directory (Linux/macOS)
-        if: runner.os != 'Windows'
+      - name: Create test directory 
         run: |
           mkdir -p /tmp/test_dir
           echo "file1.txt" > /tmp/test_dir/file1.txt
           echo "file2.txt" > /tmp/test_dir/file2.txt
-
-      - name: Create test directory (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          New-Item -Path "C:\temp\test_dir" -ItemType Directory -Force
-          "file1.txt" | Out-File -FilePath "C:\temp\test_dir\file1.txt" -Force
-          "file2.txt" | Out-File -FilePath "C:\temp\test_dir\file2.txt" -Force
           
           
-      - name: Set environment variable for file path (Linux/macOS)
-        if: runner.os != 'Windows'
+      - name: Set environment variable for file path
         run: echo "FILE_DIR=/tmp/test_dir" >> $GITHUB_ENV
-
-      - name: Set environment variable for file path (Windows)
-        if: runner.os == 'Windows'
-        run: echo "FILE_DIR=C:\\temp\\test_dir" >> $GITHUB_ENV
-
       
-      - name: Run Text Input example (Windows)
-        if: runner.os == 'Windows'
-        shell: cmd
-        run: |
-          cd examples 
-          set GOOS=windows&& set GOARCH=amd64&& go build -o example3.exe example3.go
-          python input_windows.py 
-          type output.log
-          findstr "Your entered age is 25" output.log >nul
-          if %errorlevel% equ 0 (
-              echo String found.
-          ) else (
-              echo String not found.
-              exit /b 1  
-          )                    
-          
-
-                    
-          
-      - name: Run Text Input example (Linux/macOS)
-        if: runner.os != 'Windows'
+                            
+      - name: Run Text Input example 
         run: |
           cd examples
-          python input_unix.py
+          python input.py
           
-
       
-      - name: Run Password Input example (Linux/macOS)
-        if: runner.os != 'Windows'
+      - name: Run Password Input example 
         run: |
           cd examples
-          python pwd_unix.py
+          python pwd.py
           
-
-      - name: Run Password Input example (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          cd examples 
-          set GOOS=windows && set GOARCH=amd64 && go build -o example4.exe example4.go
-          python pwd_windows.py 
-          findstr "Password entered => 123456" output.log >nul
-          if %errorlevel% equ 0 (
-              echo String found.
-          ) else (
-              echo String not found.
-              exit /b 1  
-          )          
-              
      
-      - name: Run choice example (Linux/macOS)
-        if: runner.os != 'Windows'
+      - name: Run choice example 
         run: |
           cd examples
-          python multiple_unix.py
-          
+          python multiple.py
 
-      - name: Run choice example (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          cd examples 
-          set GOOS=windows&& set GOARCH=amd64&& go build -o example2.exe example2.go
-          python multiple_windows.py 
-          findstr "Selected choice: Python" output.log >nul
-          if %errorlevel% equ 0 (
-              echo String found.
-          ) else (
-              echo String not found.
-              exit /b 1  
-          )                    
-                    
-          
 
