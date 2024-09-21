@@ -4,7 +4,7 @@ def run_test():
 
     command = r'D:\a\cobra_ui\cobra_ui\examples\example3.exe'
     
-    child = wexpect.spawn(command)
+    child = wexpect.spawn(command + ' > output.log')
 
     child.expect('Enter your age: ',timeout=5)
 
