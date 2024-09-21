@@ -11,7 +11,7 @@ def run_test():
     child.send('\r')     
 
    
-    child.expect('ytyt')
+    child.expect('Selected choice: Python')
   
     child.close()
 
