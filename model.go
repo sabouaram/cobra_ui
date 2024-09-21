@@ -44,22 +44,34 @@ type ui struct {
 	cursor      int
 	errorMsg    string
 	userAnswers []string
-	LastMessage string
 	filesList   []string
 }
 
+// SetCobra links a Cobra command with the UI.
+// Parameters:
+// - cobra: The Cobra command instance to link with the UI.
 func (u *ui) SetCobra(cobra *spfcbr.Command) {
 	u.cobra = cobra
 }
 
+// Note: This function is intended for internal use by the Bubble Tea framework
+// and should not be called directly by the end user.
+// Init initializes the UI. 
+// It returns nil as no specific initialization is needed.
 func (u *ui) Init() tea.Cmd {
 	return nil
 }
 
+// SetQuestions sets the list of questions to be presented during the UI interaction.
+//
+// Parameters:
+// - questions: A slice of Question structs representing the questions to display.
 func (u *ui) SetQuestions(questions []Question) {
 	u.questions = questions
 }
 
+// RunInteractiveUI starts the interactive UI by running a Bubble Tea program.
+// It initializes the index and cursor, then starts the UI loop.
 func (u *ui) RunInteractiveUI() {
 	u.index = 0
 	u.cursor = 0
@@ -72,6 +84,8 @@ func (u *ui) RunInteractiveUI() {
 	}
 }
 
+// AfterPreRun sets the PreRun hook for Cobra to execute the interactive UI after the PreRun logic.
+// If PreRun is already defined, it ensures the original logic is preserved.
 func (u *ui) AfterPreRun() {
 
 	if u.cobra == nil {
@@ -93,6 +107,8 @@ func (u *ui) AfterPreRun() {
 	}
 }
 
+// BeforePreRun sets the PreRun hook for Cobra to execute the interactive UI before the PreRun logic.
+// If PreRun is already defined, it ensures the UI is executed first and the original logic is preserved.
 func (u *ui) BeforePreRun() {
 
 	if u.cobra == nil {
@@ -114,6 +130,8 @@ func (u *ui) BeforePreRun() {
 	}
 }
 
+// BeforeRun sets the Run hook for Cobra to execute the interactive UI before the command's main logic.
+// If Run is already defined, it ensures the UI is executed first and preserves the original logic.
 func (u *ui) BeforeRun() {
 
 	if u.cobra == nil {
@@ -135,6 +153,8 @@ func (u *ui) BeforeRun() {
 	}
 }
 
+// AfterRun sets the Run hook for Cobra to execute the interactive UI after the command's main logic.
+// If Run is already defined, it ensures the original logic is preserved and the UI is run afterward.
 func (u *ui) AfterRun() {
 
 	if u.cobra == nil {
